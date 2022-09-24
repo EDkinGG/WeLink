@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "194892477762",
+    "project_id": "social-media-acb29",
+    "storage_bucket": "social-media-acb29.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194892477762:android:c1abe0820ae4c2df8404db",
+        "android_client_info": {
+          "package_name": "com.example.welink"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "194892477762-i03a8ub05o7nf97be68qf4h0ug22ng8s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.welink",
+            "certificate_hash": "47446154d7d94633a14236763ca0b530bc071921"
+          }
+        },
+        {
+          "client_id": "194892477762-d2soa3rk7ks3kr3v2s455vhb5c8sfvuc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5vGNuHVS5TiekCOcPmDjA2lPdgOHaLuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "194892477762-d2soa3rk7ks3kr3v2s455vhb5c8sfvuc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
