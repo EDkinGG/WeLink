@@ -9,5 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gg">#AAA4AA</color>
     <color name="rr">#FF061E</color>
+    <color name="main">#B40037</color>
+
 
 </resources>

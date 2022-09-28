@@ -1,5 +1,6 @@
 package com.example.welink;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.service.controls.actions.FloatAction;
@@ -80,11 +81,21 @@ public class Fragment2 extends Fragment implements View.OnClickListener{
         FirebaseRecyclerAdapter<All_ProductMember,Viewholder_Product> firebaseRecyclerAdapter =
                 new FirebaseRecyclerAdapter<All_ProductMember, Viewholder_Product>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull Viewholder_Product holder, int position, @NonNull All_ProductMember model) {
+                    protected void onBindViewHolder(@NonNull Viewholder_Product holder, @SuppressLint("RecyclerView") int position, @NonNull All_ProductMember model) {
 
                         holder.setitem(getActivity(), model.getName() , model.getUrl() , model.getUserid(), model.getKey(),
                                 model.getPrivacy(),model.getTime(),model.getProduct(), model.getProductImgUrl(), model.getLocation(),
                                 model.getContact(), model.getPrice() , model.getDescription());
+
+                        holder.v.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(getActivity(), ProductDetailsActivity.class);
+                                intent.putExtra("ProductKey",getRef(position).getKey());
+                                startActivity(intent);
+
+                            }
+                        });
 
                     }
 

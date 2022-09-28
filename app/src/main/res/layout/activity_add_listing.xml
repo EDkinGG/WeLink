@@ -19,8 +19,8 @@
         android:layout_margin="10dp"
         />
     <androidx.cardview.widget.CardView
-        android:layout_width="250dp"
-        android:layout_height="150dp"
+        android:layout_width="320dp"
+        android:layout_height="180dp"
         app:cardPreventCornerOverlap="false"
         app:cardCornerRadius="2dp"
         android:layout_marginBottom="30dp">
@@ -30,7 +30,7 @@
             android:layout_height="match_parent"
             android:id="@+id/iv_list"
             android:clickable="true"
-            android:background="@drawable/ic_baseline_person_24"
+            android:background="@drawable/ic_baseline_image_24"
             android:scaleType="fitCenter"/>
 
 
@@ -44,7 +44,7 @@
         android:id="@+id/et_product_list"
         android:layout_margin="4dp"
         android:drawablePadding="7dp"
-        android:drawableLeft="@drawable/ic_baseline_person_24"
+        android:drawableLeft="@drawable/ic_baseline_shopping_cart_24"
         android:paddingLeft="10dp"
         android:textColor="@android:color/black"/>
 
@@ -56,7 +56,7 @@
         android:id="@+id/et_location_list"
         android:layout_margin="4dp"
         android:drawablePadding="7dp"
-        android:drawableLeft="@drawable/ic_baseline_work_24"
+        android:drawableLeft="@drawable/ic_baseline_location_on_24"
         android:paddingLeft="10dp"
         android:textColor="@android:color/black"/>
 
@@ -68,7 +68,7 @@
         android:id="@+id/et_contact_list"
         android:layout_margin="4dp"
         android:drawablePadding="7dp"
-        android:drawableLeft="@drawable/ic_bio"
+        android:drawableLeft="@drawable/ic_baseline_local_phone_24"
         android:paddingLeft="10dp"
         android:textColor="@android:color/black"/>
 
@@ -80,7 +80,7 @@
         android:id="@+id/et_price_list"
         android:layout_margin="4dp"
         android:drawablePadding="7dp"
-        android:drawableLeft="@drawable/ic_baseline_email_24"
+        android:drawableLeft="@drawable/ic_baseline_attach_money_24"
         android:paddingLeft="10dp"
         android:textColor="@android:color/black"/>
 
@@ -92,7 +92,7 @@
         android:id="@+id/et_description_list"
         android:layout_margin="4dp"
         android:drawablePadding="7dp"
-        android:drawableLeft="@drawable/ic_baseline_public_24"
+        android:drawableLeft="@drawable/ic_baseline_speaker_notes_24"
         android:paddingLeft="10dp"
         android:textColor="@android:color/black"/>
 
@@ -101,7 +101,7 @@
         android:layout_height="wrap_content"
         android:text="ADD"
         android:layout_margin="10dp"
-        android:background="@android:color/holo_red_light"
+        android:background="@drawable/button_back"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         android:layout_marginTop="20dp"

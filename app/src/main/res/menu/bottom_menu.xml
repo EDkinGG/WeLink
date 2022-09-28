@@ -7,8 +7,8 @@
         app:showAsAction="always"
         android:id="@+id/profile_bottom"/>
 
-    <item android:title="Ask"
-        android:icon="@drawable/ic_baseline_rate_review_24"
+    <item android:title="Market"
+        android:icon="@drawable/ic_baseline_shop_24"
         app:showAsAction="always"
         android:id="@+id/ask_bottom"/>
 

@@ -1,6 +1,7 @@
 package com.example.welink;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -56,8 +58,11 @@ public class Fragment1 extends Fragment implements View.OnClickListener{
 
         imageButtonEdit.setOnClickListener(this);
         imageButtonMenu.setOnClickListener(this);
+        imageView.setOnClickListener(this);
+        webEt.setOnClickListener(this);
 
         auth = FirebaseAuth.getInstance();
+
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +86,20 @@ public class Fragment1 extends Fragment implements View.OnClickListener{
             case R.id.ib_menu_f1:
                 BottomSheetMenu bottomSheetMenu = new BottomSheetMenu();
                 bottomSheetMenu.show(getFragmentManager(),"bottomsheet");
+                break;
+            case R.id.iv_f1:
+               Intent intent1 = new Intent(getActivity(),ImageActivity.class);
+               startActivity(intent1);
+                break;
+            case R.id.tv_web_f1:
+                try{
+                    String url = webEt.getText().toString();
+                    Intent intent2 = new Intent(Intent.ACTION_VIEW);
+                    intent2.setData(Uri.parse(url));
+                    startActivity(intent2);
+                }catch( Exception e){
+                    Toast.makeText(getActivity(), "Invalid Url", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }

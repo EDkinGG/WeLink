@@ -94,7 +94,7 @@
         android:layout_height="wrap_content"
         android:text="SAVE PROFILE"
         android:layout_margin="10dp"
-        android:background="@android:color/holo_red_light"
+        android:background="@drawable/button_back"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         android:layout_marginTop="20dp"

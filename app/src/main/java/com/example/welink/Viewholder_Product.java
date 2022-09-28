@@ -15,9 +15,12 @@ public class Viewholder_Product extends RecyclerView.ViewHolder {
 
     ImageView productView,imageView;
     TextView product_result, contact_result, price_result, time_result;
+    View v;
 
     public Viewholder_Product(@NonNull View itemView) {
+
         super(itemView);
+        v = itemView;
     }
 
     public void setitem(FragmentActivity activity ,String name, String url, String userid, String key, String privacy, String time,
