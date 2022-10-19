@@ -46,6 +46,7 @@ dependencies {
 
     implementation platform('com.google.firebase:firebase-bom:30.4.1')
 
+
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-auth:21.0.8'
     implementation 'com.google.firebase:firebase-core:21.1.1'
@@ -68,5 +69,7 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer-hls:2.13.3'
     implementation 'com.google.android.exoplayer:exoplayer-smoothstreaming:2.13.3'
     implementation 'com.google.android.exoplayer:exoplayer-ui:2.13.3'
+
+    implementation 'io.github.ParkSangGwon:tedpermission-normal:3.3.0'
 
 }
