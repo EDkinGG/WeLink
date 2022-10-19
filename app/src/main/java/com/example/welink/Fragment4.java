@@ -1,6 +1,7 @@
 package com.example.welink;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -88,8 +90,20 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
                         final String postkey = getRef(position).getKey();
                         holder.SetPost(getActivity(), model.getName(), model.getUrl(), model.getPostUri(),model.getTime(),model.getUid(),model.getType(), model.getDesc());
 
+                        final String name = getItem(position).getName();
+                        final String url = getItem(position).getUrl();
+                        final String time = getItem(position).getTime();
+                        final String userid = getItem(position).getUid();
 
                         holder.likeschecker(postkey);
+
+                        holder.menuoptions.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                showDialog(name,url,time,userid);
+                            }
+                        });
+
                         holder.likebtn.setOnClickListener((view) -> {
 
                             likechecker = true;
@@ -101,14 +115,14 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
                                         if( snapshot.child(postkey).hasChild(currentUserid))
                                         {
                                             likeref.child(postkey).child(currentUserid).removeValue();
-                                            Toast.makeText(getActivity(), "Removed from favourite", Toast.LENGTH_SHORT).show();
+//                                            Toast.makeText(getActivity(), "Removed from favourite", Toast.LENGTH_SHORT).show();
                                             likechecker = false;
                                         }
                                         else
                                         {
                                             likeref.child(postkey).child(currentUserid).setValue(true);
                                             likechecker = false;
-                                            Toast.makeText(getActivity(), "Added to Favourite", Toast.LENGTH_SHORT).show();
+//                                            Toast.makeText(getActivity(), "Added to Favourite", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 }
@@ -136,4 +150,21 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
         recyclerView.setAdapter(firebaseRecyclerAdapter);
 
     }
+
+    void showDialog(String  name , String  url , String  time , String userid )
+    {
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        View view = inflater.inflate(R.layout.post_options,null);
+        TextView download = view.findViewById(R.id.download_tv_post);
+        TextView share = view.findViewById(R.id.share_tv_post);
+        TextView delete = view.findViewById(R.id.delete_tv_post);
+        TextView copyurl = view.findViewById(R.id.copyurl_tv_post);
+
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+                .setView(view)
+                .create();
+
+        alertDialog.show();
+    }
+
 }

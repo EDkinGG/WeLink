@@ -109,7 +109,7 @@ public class UpdateProfile extends AppCompatActivity {
         db.runTransaction(new Transaction.Function<Void>() {
                     @Override
                     public Void apply(Transaction transaction) throws FirebaseFirestoreException {
-                       // DocumentSnapshot snapshot = transaction.get(sfDocRef);
+                        DocumentSnapshot snapshot = transaction.get(sDoc);
 
                         transaction.update(sDoc, "name",name);
                         transaction.update(sDoc, "prof",prof);
