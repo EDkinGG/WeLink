@@ -81,6 +81,7 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
         db1 = database.getReference("All images").child(currentuid);
         db2 = database.getReference("All videos").child(currentuid);
         db3 = database.getReference("All posts");
+        db3.keepSynced(true);
 
         button.setOnClickListener(this);
     }
@@ -161,6 +162,18 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
 
                                 }
                             });
+                        });
+
+                        holder.commentbtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(getActivity(), CommentsActivity.class);
+                                intent.putExtra("postkey", postkey);
+                                intent.putExtra("name", name);
+                                intent.putExtra("url", url);
+                                intent.putExtra("uid", userid);
+                                startActivity(intent);
+                            }
                         });
                     }
 

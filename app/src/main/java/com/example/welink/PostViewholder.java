@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
@@ -35,6 +36,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.util.Collections;
 
 public class PostViewholder extends RecyclerView.ViewHolder {
 
@@ -82,22 +85,30 @@ public class PostViewholder extends RecyclerView.ViewHolder {
         else if( type.equals("vv"))
         {
             Picasso.get().load(url).into(imageViewprofile);
-            iv_post.setVisibility(View.VISIBLE);
+            iv_post.setVisibility(View.INVISIBLE);
             tv_desc.setText(desc);
             tv_time.setText(time);
             tv_nameprofile.setText(name);
 
             try {
-                BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter.Builder(activity).build();
-                TrackSelector trackSelector = new DefaultTrackSelector(new AdaptiveTrackSelection.Factory());
-                exoPlayer = (SimpleExoPlayer) ExoPlayerFactory.newSimpleInstance(activity);
-                Uri video = Uri.parse(postUri);
-                DefaultHttpDataSourceFactory df = new DefaultHttpDataSourceFactory("video");
-                ExtractorsFactory ef = new DefaultExtractorsFactory();
-                MediaSource mediaSource = new ExtractorMediaSource(video,df,ef,null,null);
-                playerView.setPlayer(exoPlayer);
-                exoPlayer.prepare(mediaSource);
-                exoPlayer.setPlayWhenReady(false);
+//                BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter.Builder(activity).build();
+//                TrackSelector trackSelector = new DefaultTrackSelector(new AdaptiveTrackSelection.Factory());
+//                exoPlayer = (SimpleExoPlayer) ExoPlayerFactory.newSimpleInstance(activity);
+//                Uri video = Uri.parse(postUri);
+//                DefaultHttpDataSourceFactory df = new DefaultHttpDataSourceFactory("video");
+//                ExtractorsFactory ef = new DefaultExtractorsFactory();
+//                MediaSource mediaSource = new ExtractorMediaSource(video,df,ef,null,null);
+//                playerView.setPlayer(exoPlayer);
+//                exoPlayer.prepare(mediaSource);
+//                exoPlayer.setPlayWhenReady(false);
+
+                SimpleExoPlayer simpleExoPlayer = new SimpleExoPlayer.Builder(activity).build();
+                playerView.setPlayer(simpleExoPlayer);
+                MediaItem mediaItem = MediaItem.fromUri(postUri);
+                simpleExoPlayer.addMediaItems(Collections.singletonList(mediaItem));
+                simpleExoPlayer.prepare();
+                simpleExoPlayer.setPlayWhenReady(false);
+
 
             }
             catch ( Exception e)

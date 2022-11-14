@@ -54,7 +54,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
             if(type.equals("i")){
                 receivertv.setVisibility(View.GONE);
                 sendertv.setVisibility(View.GONE);
-                iv_sender.setVisibility(View.GONE);
+                iv_receiver.setVisibility(View.GONE);
                 iv_sender.setVisibility(View.VISIBLE);
                 Picasso.get().load(image).into(iv_sender);
                 llreceiver.setVisibility(View.GONE);
