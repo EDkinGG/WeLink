@@ -29,6 +29,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener{
     ImageView imageView;
     TextView nameEt, profEt, bioEt,emailEt,webEt,postTv;
     Button logoutBtn;
+    Button btnsendmessage;
 
     ImageButton imageButtonEdit,imageButtonMenu;
 
@@ -54,12 +55,15 @@ public class Fragment1 extends Fragment implements View.OnClickListener{
         postTv = getActivity().findViewById(R.id.tv_post_f1);
         logoutBtn = getActivity().findViewById(R.id.btn_logout_f1);
 
+        btnsendmessage = getActivity().findViewById(R.id.btn_sendmessage_f1);
+
         imageButtonEdit = getActivity().findViewById(R.id.ib_edit_f1);
         imageButtonMenu = getActivity().findViewById(R.id.ib_menu_f1);
         postTv.setOnClickListener(this);
 
         imageButtonEdit.setOnClickListener(this);
         imageButtonMenu.setOnClickListener(this);
+        btnsendmessage.setOnClickListener(this);
         imageView.setOnClickListener(this);
         webEt.setOnClickListener(this);
 
@@ -97,6 +101,10 @@ public class Fragment1 extends Fragment implements View.OnClickListener{
             case R.id.tv_post_f1:
                 Intent intent5 = new Intent(getActivity(),IndividualPost.class);
                 startActivity(intent5);
+                break;
+            case R.id.btn_sendmessage_f1:
+                Intent in = new Intent(getActivity(),ChatActivity.class);
+                startActivity(in);
                 break;
             case R.id.tv_web_f1:
                 try{

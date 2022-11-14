@@ -11,6 +11,11 @@
     <color name="gg">#AAA4AA</color>
     <color name="rr">#FF061E</color>
     <color name="main">#B40037</color>
+    <color name="start">#FF061E</color>
+    <color name="grey">#AAA4AA</color>
+    <color name="textcolorgrey">#696969</color>
+    <color name="retrycolor">#0E33FF</color>
+    <color name="red">#FF061E</color>
 
 
 </resources>
