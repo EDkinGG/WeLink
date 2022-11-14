@@ -28,7 +28,7 @@ import com.squareup.picasso.Picasso;
 public class Fragment1 extends Fragment implements View.OnClickListener{
     ImageView imageView;
     TextView nameEt, profEt, bioEt,emailEt,webEt,postTv;
-    Button logoutBtn;
+//    Button logoutBtn;
     Button btnsendmessage;
 
     ImageButton imageButtonEdit,imageButtonMenu;
@@ -53,7 +53,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener{
         emailEt = getActivity().findViewById(R.id.tv_email_f1);
         webEt = getActivity().findViewById(R.id.tv_web_f1);
         postTv = getActivity().findViewById(R.id.tv_post_f1);
-        logoutBtn = getActivity().findViewById(R.id.btn_logout_f1);
+//        logoutBtn = getActivity().findViewById(R.id.btn_logout_f1);
 
         btnsendmessage = getActivity().findViewById(R.id.btn_sendmessage_f1);
 
@@ -71,14 +71,14 @@ public class Fragment1 extends Fragment implements View.OnClickListener{
         auth = FirebaseAuth.getInstance();
 
 
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                auth.signOut();
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
+//        logoutBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                auth.signOut();
+//                Intent intent = new Intent(getActivity(), LoginActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     @Override

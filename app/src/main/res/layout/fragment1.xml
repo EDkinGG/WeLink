@@ -274,7 +274,7 @@
         android:layout_height="wrap_content"
         android:text="Add Stories"
         android:textColor="@color/main"
-        android:textSize="15sp"
+        android:textSize="20sp"
         android:layout_margin="7dp"
         android:padding="5dp"
         android:id="@+id/tv_addstories_f1"
@@ -292,15 +292,6 @@
         android:layout_margin="7dp"
         android:id="@+id/btn_sendmessage_f1"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Logout"
-        android:background="@drawable/button_back"
-        android:textColor="@android:color/white"
-        android:textSize="15sp"
-        android:layout_margin="7dp"
-        android:id="@+id/btn_logout_f1"/>
 
 
 

@@ -75,7 +75,7 @@ public class ShowUser extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
 
-//        sendmessage = findViewById(R.id.btn_sendmessage_showuser);
+        sendmessage = findViewById(R.id.btn_sendmessage_showuser);
         requestMember = new RequestMember();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String currentUserId = user.getUid();
@@ -137,17 +137,17 @@ public class ShowUser extends AppCompatActivity {
 //            }
 //        });
 //
-//        sendmessage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Intent intent = new Intent(ShowUser.this,MessageActivity.class);
-//                intent.putExtra("n",name);
-//                intent.putExtra("u",url);
-//                intent.putExtra("uid",userid);
-//                startActivity(intent);
-//            }
-//        });
+        sendmessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(ShowUser.this,MessageActivity.class);
+                intent.putExtra("n",name);
+                intent.putExtra("u",url);
+                intent.putExtra("uid",userid);
+                startActivity(intent);
+            }
+        });
 //
 //
 //        websitetv.setOnClickListener(new View.OnClickListener() {
