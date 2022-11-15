@@ -77,4 +77,6 @@ dependencies {
 
     implementation 'io.github.ParkSangGwon:tedpermission-normal:3.3.0'
 
+    implementation 'com.github.shts:StoriesProgressView:3.0.0'
+
 }

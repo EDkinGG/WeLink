@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,12 +48,14 @@ import java.security.Permission;
 import java.util.List;
 
 public class Fragment4 extends Fragment implements View.OnClickListener{
-    Button button;
+    ImageButton button;
     RecyclerView recyclerView;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference reference,likeref;
+    DatabaseReference reference,likeref,storyRef;
     Boolean likechecker = false;
     DatabaseReference db1, db2, db3;
+
+    RecyclerView recyclerViewstory;
 
 
     @Nullable
@@ -70,6 +74,7 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
 
         reference = database.getReference("All posts");
         likeref = database.getReference("post likes");
+        storyRef = database.getReference("All story");
         recyclerView = getActivity().findViewById(R.id.rv_posts);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -82,6 +87,12 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
         db2 = database.getReference("All videos").child(currentuid);
         db3 = database.getReference("All posts");
         db3.keepSynced(true);
+
+        recyclerViewstory = getActivity().findViewById(R.id.rv_storyf4);
+        recyclerViewstory.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewstory.setLayoutManager(linearLayoutManager);
+        recyclerViewstory.setItemAnimator(new DefaultItemAnimator());
 
         button.setOnClickListener(this);
     }
@@ -211,6 +222,58 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
 
         firebaseRecyclerAdapter.startListening();
         recyclerView.setAdapter(firebaseRecyclerAdapter);
+
+
+
+        // story firebase recyclerview adapter
+
+
+        FirebaseRecyclerOptions<StoryMember> options1 =
+                new FirebaseRecyclerOptions.Builder<StoryMember>()
+                        .setQuery(storyRef, StoryMember.class)
+                        .build();
+
+        FirebaseRecyclerAdapter<StoryMember, StoryViewHolder> firebaseRecyclerAdapterstory =
+                new FirebaseRecyclerAdapter<StoryMember, StoryViewHolder>(options1) {
+                    @Override
+                    protected void onBindViewHolder(@NonNull StoryViewHolder holder, int position, @NonNull final StoryMember model) {
+
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        final String currentUserid = user.getUid();
+
+
+                        holder.setStory(getActivity(), model.getPostUri(), model.getName(), model.getTimeEnd(), model.getTimeUpload()
+                                , model.getType(), model.getCaption(), model.getUrl(), model.getUid());
+
+                        String userid = getItem(position).getUid();
+                        holder.imageView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(getActivity(), ShowStory.class);
+                                intent.putExtra("u", userid);
+                                startActivity(intent);
+
+                            }
+                        });
+
+
+                    }
+
+                    @NonNull
+                    @Override
+                    public StoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+                        View view = LayoutInflater.from(parent.getContext())
+                                .inflate(R.layout.story_layout, parent, false);
+
+                        return new StoryViewHolder(view);
+
+
+                    }
+                };
+        firebaseRecyclerAdapterstory.startListening();
+
+        recyclerViewstory.setAdapter(firebaseRecyclerAdapterstory);
 
     }
 
