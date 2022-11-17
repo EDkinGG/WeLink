@@ -55,7 +55,7 @@ public class CommentsActivity extends AppCompatActivity {
     String currentuid = user.getUid();
 
 
-//    NewMember newMember;
+    NewMember newMember;
     CommentsMember commentsMember;
 
     @Override
@@ -65,7 +65,7 @@ public class CommentsActivity extends AppCompatActivity {
 
         commentsMember = new CommentsMember();
 
-//        newMember = new NewMember();
+        newMember = new NewMember();
         recyclerView = findViewById(R.id.recycler_view_comments);
 
 
@@ -256,14 +256,14 @@ public class CommentsActivity extends AppCompatActivity {
             commentsEdittext.setText("");
 
 
-//            newMember.setName(name);
-//            newMember.setUid(userid);
-//            newMember.setUrl(Url);
-//            newMember.setSeen("no");
-//            newMember.setText("Commented on your post: " + comment);
+            newMember.setName(name_result);
+            newMember.setUid(userid);
+            newMember.setUrl(Url);
+            newMember.setSeen("no");
+            newMember.setText("Commented on your post: " + comment);
 
             String key = ntref.push().getKey();
-//            ntref.child(key).setValue(newMember);
+            ntref.child(key).setValue(newMember);
 //            sendNotification(bundleuid, name_result, comment);
 
             Toast.makeText(this, "Commented", Toast.LENGTH_SHORT).show();

@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.arch.core.executor.DefaultTaskExecutor;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
@@ -42,7 +43,7 @@ import java.util.Map;
 
 public class AddListingActivity extends AppCompatActivity {
 
-    EditText etProduct,etLocation,etContact,etPrice,etDescription;
+    EditText etProduct,etCategory,etLocation,etContact,etPrice,etDescription;
     ImageView productImage;
     Button button;
 
@@ -64,6 +65,7 @@ public class AddListingActivity extends AppCompatActivity {
 
     String name,url,privacy,uid;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +74,7 @@ public class AddListingActivity extends AppCompatActivity {
 
         member = new All_ProductMember();
         etProduct = findViewById(R.id.et_product_list);
+        etCategory = findViewById(R.id.et_product_category);
         etLocation = findViewById(R.id.et_location_list);
         etContact = findViewById(R.id.et_contact_list);
         etPrice = findViewById(R.id.et_price_list);
@@ -165,6 +168,7 @@ public class AddListingActivity extends AppCompatActivity {
 
     private void uploadData() {
         String product = etProduct.getText().toString();
+        String category = etCategory.getText().toString();
         String location = etLocation.getText().toString();
         String contact = etContact.getText().toString();
         String price = etPrice.getText().toString();
@@ -182,7 +186,7 @@ public class AddListingActivity extends AppCompatActivity {
         String time = savedate +":"+ savetime;
 
 
-        if( !TextUtils.isEmpty(product) && !TextUtils.isEmpty(location) && !TextUtils.isEmpty(contact) && !TextUtils.isEmpty(price)
+        if( !TextUtils.isEmpty(product) && !TextUtils.isEmpty(category) && !TextUtils.isEmpty(location) && !TextUtils.isEmpty(contact) && !TextUtils.isEmpty(price)
                 && !TextUtils.isEmpty(description) && imageUri != null )
         {
             final StorageReference reference = storageReference.child(System.currentTimeMillis()+ "."+getFileExt(imageUri));
@@ -213,6 +217,7 @@ public class AddListingActivity extends AppCompatActivity {
                         member.setTime(time);
 
                         member.setProduct(product);
+                        member.setCategory(category);
                         member.setLocation(location);
                         member.setContact(contact);
                         member.setPrice(price);

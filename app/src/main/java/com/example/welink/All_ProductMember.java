@@ -10,6 +10,7 @@ public class All_ProductMember {
     String privacy;
     String time;
     String product;
+    String category;
     String productImgUrl;
     String location;
     String contact;
@@ -77,6 +78,14 @@ public class All_ProductMember {
 
     public void setProduct(String product) {
         this.product = product;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getProductImgUrl() {

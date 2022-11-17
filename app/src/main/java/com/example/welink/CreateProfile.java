@@ -34,6 +34,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class CreateProfile extends AppCompatActivity {
@@ -159,7 +160,7 @@ public class CreateProfile extends AppCompatActivity {
                         Uri downloadUri = task.getResult();
 
                         Map<String,String > profile = new HashMap<>();
-                        profile.put("name",name);
+                        profile.put("name",name.toUpperCase());
                         profile.put("prof",prof);
                         profile.put("url",downloadUri.toString());
                         profile.put("email",email);

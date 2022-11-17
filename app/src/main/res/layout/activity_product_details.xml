@@ -9,15 +9,14 @@
     tools:context=".ProductDetailsActivity">
 
     <TextView
+        android:id="@+id/tv_head_product"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center_horizontal"
         android:text="Product"
         android:textColor="@android:color/black"
-        android:id="@+id/tv_head_product"
-        android:textSize="20sp"
-        android:gravity="center_horizontal"
-        android:layout_margin="10dp"
-        />
+        android:textSize="20sp" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="320dp"
@@ -79,11 +78,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="15dp"
-        android:hint="Product"
-        android:id="@+id/tv_productName_product"
+        android:hint="category"
+        android:id="@+id/tv_productCategory_product"
         android:layout_margin="4dp"
         android:drawablePadding="7dp"
-        android:drawableLeft="@drawable/ic_baseline_shopping_cart_24"
+        android:drawableLeft="@drawable/ic_baseline_category_24"
         android:paddingLeft="10dp"
         android:textColor="@android:color/black"/>
 

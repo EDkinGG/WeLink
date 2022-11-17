@@ -41,7 +41,7 @@ public class Fragment3 extends Fragment {
     TextView requesttv;
     EditText editText;
     String currentUserId, usertoken;
-//    NewMember newMember;
+    NewMember newMember;
     String senderuid;
 
 
@@ -67,10 +67,10 @@ public class Fragment3 extends Fragment {
         databaseReference = database.getReference("Requests").child(currentUserId);
         profileRef = database.getReference("ALl Users");
 
-//        ntRef = database.getReference("notification").child(currentUserId);
+        ntRef = database.getReference("notification").child(currentUserId);
         requestMember = new RequestMember();
 
-//        newMember = new NewMember();
+        newMember = new NewMember();
         recyclerView_profile = getActivity().findViewById(R.id.recylerview_profile);
 
 
@@ -317,14 +317,13 @@ public class Fragment3 extends Fragment {
 
 
                                 // handling request notification
-//
-//                                newMember.setName(name);
-//                                newMember.setUid(uid);
-//                                newMember.setUrl(url);
-//                                newMember.setSeen("no");
-//                                newMember.setText("Started Following you ");
-//
-//                                ntRef.child(uid + "f").setValue(newMember);
+
+                                newMember.setName(name);
+                                newMember.setUid(uid);
+                                newMember.setUrl(url);
+                                newMember.setSeen("no");
+                                newMember.setText("Started Following you ");
+                                ntRef.child(uid + "f").setValue(newMember);
 
 
                             }

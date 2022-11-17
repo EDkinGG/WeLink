@@ -67,7 +67,7 @@ public class ShowUser extends AppCompatActivity {
 
     int followercount,postiv,postvv;
 
-//    NewMember newMember;
+    NewMember newMember;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +83,7 @@ public class ShowUser extends AppCompatActivity {
 
 //        checkIncoming();
 
-//        newMember = new NewMember();
+        newMember = new NewMember();
         nametv = findViewById(R.id.name_tv_showprofile);
         professiontv = findViewById(R.id.age_tv_showprofile);
         biotv = findViewById(R.id.bio_tv_showprofile);
@@ -115,13 +115,13 @@ public class ShowUser extends AppCompatActivity {
         postnoref = database.getReference("User Posts").child(userid);
         databaseReference2  = database.getReference("followers");
         documentReference1 = db.collection("user").document(currentUserId);
-//        db1 = database.getReference("All images").child(userid);
-//        db2 = database.getReference("All videos").child(userid);
+        db1 = database.getReference("All images").child(userid);
+        db2 = database.getReference("All videos").child(userid);
 
 //        blockRef = database.getReference("Block users").child(currentuid);
 //        blocklistref = database.getReference("Blocklist").child(currentuid);
 //
-//        ntref = database.getReference("notification").child(currentUserId);
+        ntref = database.getReference("notification").child(currentUserId);
 //
 //        blockRef.addValueEventListener(new ValueEventListener() {
 //            @Override
@@ -194,14 +194,14 @@ public class ShowUser extends AppCompatActivity {
             }
         });
 
-//        followers_tv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(ShowUser.this,FollowerActivity.class);
-//                intent.putExtra("u",userid);
-//                startActivity(intent);
-//            }
-//        });
+        followers_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ShowUser.this,FollowerActivity.class);
+                intent.putExtra("u",userid);
+                startActivity(intent);
+            }
+        });
 
 
 //        blockreporttv.setOnClickListener(new View.OnClickListener() {
@@ -460,34 +460,34 @@ public class ShowUser extends AppCompatActivity {
         super.onStart();
 
 
-//        db1.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                postiv = (int)snapshot.getChildrenCount();
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        db2.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                postvv = (int)snapshot.getChildrenCount();
-//                String total = Integer.toString(postiv+postvv);
-//                posts_tv.setText(total);
-//
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+        db1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                postiv = (int)snapshot.getChildrenCount();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        db2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                postvv = (int)snapshot.getChildrenCount();
+                String total = Integer.toString(postiv+postvv);
+                posts_tv.setText(total);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
 
@@ -678,15 +678,15 @@ public class ShowUser extends AppCompatActivity {
 
             databaseReference1.child(currentUserId).setValue(requestMember);
 
-//
-//            newMember.setName(name);
-//            newMember.setUid(currentUserId);
-//            newMember.setUrl(url);
-//            newMember.setSeen("no");
-//            newMember.setText("Started Following you ");
-//
+
+            newMember.setName(name);
+            newMember.setUid(currentUserId);
+            newMember.setUrl(url);
+            newMember.setSeen("no");
+            newMember.setText("Started Following you ");
+
 //            sendNotification(userid,name_result);
-//            ntref.child(currentUserId+"f").setValue(newMember);
+            ntref.child(currentUserId+"f").setValue(newMember);
 
 
         }else {

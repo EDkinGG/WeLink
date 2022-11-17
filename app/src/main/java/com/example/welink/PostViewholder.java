@@ -44,9 +44,9 @@ public class PostViewholder extends RecyclerView.ViewHolder {
     ImageView imageViewprofile,iv_post;
     TextView tv_name, tv_desc, tv_likes,tv_comment,tv_time,tv_nameprofile;
     ImageButton likebtn,menuoptions,commentbtn;
-    DatabaseReference likesref;
+    DatabaseReference likesref,commentref;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    int likescount;
+    int likescount,commentcount;
 
 
 
@@ -119,8 +119,7 @@ public class PostViewholder extends RecyclerView.ViewHolder {
         }
     }
 
-    public void likeschecker( final String postkey )
-    {
+    public void likeschecker(final String postkey) {
         likebtn = itemView.findViewById(R.id.likebutton_posts);
 
 
@@ -132,17 +131,16 @@ public class PostViewholder extends RecyclerView.ViewHolder {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                if( snapshot.child(postkey).hasChild(uid))
-                {
+                if (snapshot.child(postkey).hasChild(uid)) {
                     likebtn.setImageResource(R.drawable.ic_like);
+                    likescount = (int) snapshot.child(postkey).getChildrenCount();
+                    tv_likes.setText(Integer.toString(likescount) + "likes");
+                } else {
+                    likebtn.setImageResource(R.drawable.ic_dislike);
+                    likescount = (int) snapshot.child(postkey).getChildrenCount();
+                    tv_likes.setText(Integer.toString(likescount) + "likes");
 
                 }
-                else
-                {
-                    likebtn.setImageResource(R.drawable.ic_dislike);
-                }
-                likescount = (int)snapshot.child(postkey).getChildrenCount();
-                tv_likes.setText(Integer.toString(likescount)+"likes");
 
             }
 
@@ -151,6 +149,31 @@ public class PostViewholder extends RecyclerView.ViewHolder {
 
             }
         });
+
+    }
+
+    public void commentchecker(final String postkey) {
+
+        tv_comment = itemView.findViewById(R.id.tv_comment_post);
+
+
+        commentref = database.getReference("All Posts").child(postkey).child("Comments");
+
+        commentref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                commentcount = (int) snapshot.getChildrenCount();
+                tv_comment.setText(Integer.toString(commentcount)+" Comments");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+
+            }
+        });
+
     }
 
 

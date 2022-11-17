@@ -154,38 +154,37 @@ public class ProfileViewholder extends RecyclerView.ViewHolder {
 
     }
 
-//    public void setLikeduser(Application fragmentActivity, String name, String uid, String prof,
-//                             String url){
-//
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        String userid = user.getUid();
-//
-//
-//        vp_ll = itemView.findViewById(R.id.vp_ll);
-//        namell = itemView.findViewById(R.id.name_ll);
-//        iv_ll = itemView.findViewById(R.id.iv_ll);
-//
-//        Picasso.get().load(url).into(iv_ll);
-//        namell.setText(name);
-//
-//
-//    }
+    public void setLikeduser(Application fragmentActivity, String name, String uid, String prof,
+                             String url){
 
-//    public void setFollower( Application application, String name, String url,
-//                             String profession, String bio, String privacy, String email, String followers, String website){
-//
-//        iv_follower = itemView.findViewById(R.id.iv_follower);
-//        professionFollower = itemView.findViewById(R.id.profession_follower);
-//        namefollower = itemView.findViewById(R.id.name_follower);
-//        vpfollower = itemView.findViewById(R.id.vp_follower);
-//
-//        Picasso.get().load(url).into(iv_follower);
-//        namefollower.setText(name);
-//        professionFollower.setText(profession);
-//
-//
-//
-//    }
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String userid = user.getUid();
+
+
+        vp_ll = itemView.findViewById(R.id.vp_ll);
+        namell = itemView.findViewById(R.id.name_ll);
+        iv_ll = itemView.findViewById(R.id.iv_ll);
+
+        Picasso.get().load(url).into(iv_ll);
+        namell.setText(name);
+
+
+    }
+
+    public void setFollower( Application application, String name, String url,
+                             String profession, String bio, String privacy, String email, String followers, String website){
+
+        iv_follower = itemView.findViewById(R.id.iv_follower);
+        professionFollower = itemView.findViewById(R.id.profession_follower);
+        namefollower = itemView.findViewById(R.id.name_follower);
+        vpfollower = itemView.findViewById(R.id.vp_follower);
+
+        Picasso.get().load(url).into(iv_follower);
+        namefollower.setText(name);
+        professionFollower.setText(profession);
+
+
+    }
 
 
 

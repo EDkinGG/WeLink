@@ -51,6 +51,18 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Category"
+        android:inputType="text"
+        android:id="@+id/et_product_category"
+        android:layout_margin="4dp"
+        android:drawablePadding="7dp"
+        android:drawableLeft="@drawable/ic_baseline_category_24"
+        android:paddingLeft="10dp"
+        android:textColor="@android:color/black"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:hint="location"
         android:inputType="text"
         android:id="@+id/et_location_list"

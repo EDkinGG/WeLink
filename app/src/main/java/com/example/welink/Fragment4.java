@@ -1,20 +1,28 @@
 package com.example.welink;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.DownloadManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -30,7 +38,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -39,6 +49,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.gun0912.tedpermission.PermissionListener;
@@ -51,11 +64,30 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
     ImageButton button;
     RecyclerView recyclerView;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference reference,likeref,storyRef;
+    DatabaseReference reference,likeref,storyRef,likelist,referenceDel, ntref;
     Boolean likechecker = false;
     DatabaseReference db1, db2, db3;
 
+
+    DatabaseReference checkVideocallRef;
+    String senderuid;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    String currentuid = user.getUid();
+
+//    ReportCLass reportCLass;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    DocumentReference documentReference;
+
+    NewMember newMember;
+    LinearLayoutManager linearLayoutManager;
+    Uri imageUri;
+    private static final int PICK_IMAGE = 1;
     RecyclerView recyclerViewstory;
+
+
+    String name_result, url_result, uid_result, usertoken;
+    All_UserMember userMember;
 
 
     @Nullable
@@ -74,19 +106,34 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
 
         reference = database.getReference("All posts");
         likeref = database.getReference("post likes");
+//        reportClass = new ReportClass();
+//        checkIncoming();
         storyRef = database.getReference("All story");
+        referenceDel = database.getReference("story");
+
+
         recyclerView = getActivity().findViewById(R.id.rv_posts);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String currentuid = user.getUid();
+
+        documentReference = db.collection("user").document(currentuid);
+
+        newMember = new NewMember();
+
 
         db1 = database.getReference("All images").child(currentuid);
         db2 = database.getReference("All videos").child(currentuid);
         db3 = database.getReference("All posts");
         db3.keepSynced(true);
+
+
+
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+
 
         recyclerViewstory = getActivity().findViewById(R.id.rv_storyf4);
         recyclerViewstory.setHasFixedSize(true);
@@ -95,21 +142,115 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
         recyclerViewstory.setItemAnimator(new DefaultItemAnimator());
 
         button.setOnClickListener(this);
+
+        userMember = new All_UserMember();
+
+        checkStory(currentuid);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.createpost_f4:
-                Intent intent = new Intent(getActivity(), PostActivity.class);
-                startActivity(intent);
+                showBottomsheet();
                 break;
         }
+    }
+
+    private void checkStory(String currentuid) {
+        referenceDel.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.hasChild(currentuid)) {
+
+                } else {
+                    Query query3 = storyRef.orderByChild("uid").equalTo(currentuid);
+                    query3.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
+                                dataSnapshot1.getRef().removeValue();
+
+                                Toast.makeText(getActivity(), "Deleted", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
+    private void showBottomsheet() {
+
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.f4_bottomsheet);
+
+        TextView tvcp = dialog.findViewById(R.id.tv_cpf4);//post
+        TextView tvcs = dialog.findViewById(R.id.tv_csf4);//story
+
+
+        tvcp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), PostActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvcs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentstory = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                intentstory.setType("image/*");
+                startActivityForResult(intentstory, PICK_IMAGE);
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.Bottomanim;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
+
+        documentReference.get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                        if( task.getResult().exists() )
+                        {
+                            name_result = task.getResult().getString("name");
+                            url_result = task.getResult().getString("url");
+                            uid_result = task.getResult().getString("uid");
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                });
 
 
         FirebaseRecyclerOptions<Postmember> options =
@@ -131,12 +272,13 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
 
                         final String url = getItem(position).getPostUri();
                         final String name = getItem(position).getName();
-                       // final String url = getItem(position).getUrl();
+                        final String useruri = getItem(position).getUrl();
                         final String time = getItem(position).getTime();
                         final String userid = getItem(position).getUid();
                         final String type = getItem(position).getType();
 
                         holder.likeschecker(postkey);
+                        holder.commentchecker(postkey);
 
                         holder.menuoptions.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -164,35 +306,73 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
                             }
                         });
 
-                        holder.likebtn.setOnClickListener((view) -> {
+                        holder.likebtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
 
-                            likechecker = true;
-                            likeref.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if( likechecker.equals(true))
-                                    {
-                                        if( snapshot.child(postkey).hasChild(currentUserid))
-                                        {
-                                            likeref.child(postkey).child(currentUserid).removeValue();
-//                                            Toast.makeText(getActivity(), "Removed from favourite", Toast.LENGTH_SHORT).show();
-                                            likechecker = false;
+                                ntref = database.getReference("notification").child(userid);
+
+                                likechecker = true;
+
+                                likeref.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                        if (likechecker.equals(true)) {
+                                            if (snapshot.child(postkey).hasChild(currentUserid)) {
+                                                likeref.child(postkey).child(currentUserid).removeValue();
+                                                likelist = database.getReference("like list").child(postkey).child(currentUserid);
+                                                likelist.removeValue();
+
+                                                ntref.child(currentUserid + "l").removeValue();
+
+                                                likechecker = false;
+                                            } else {
+
+                                                likeref.child(postkey).child(currentUserid).setValue(true);
+                                                likelist = database.getReference("like list").child(postkey);
+                                                userMember.setName(name_result);
+                                                userMember.setUid(currentUserid);
+                                                userMember.setUrl(url_result);
+                                                likelist.child(currentUserid).setValue(userMember);
+
+                                                newMember.setName(name_result);
+                                                newMember.setUid(currentUserid);
+                                                newMember.setUrl(url_result);
+                                                newMember.setSeen("no");
+                                                newMember.setText("Liked Your Post ");
+
+
+                                                ntref.child(currentUserid + "l").setValue(newMember);
+
+//                                                sendNotification(userid, name_result);
+                                                likechecker = false;
+
+
+                                            }
                                         }
-                                        else
-                                        {
-                                            likeref.child(postkey).child(currentUserid).setValue(true);
-                                            likechecker = false;
-//                                            Toast.makeText(getActivity(), "Added to Favourite", Toast.LENGTH_SHORT).show();
-                                        }
+
                                     }
-                                }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
 
-                                }
-                            });
+                                    }
+                                });
+
+                            }
                         });
+
+
+                        holder.tv_likes.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(getActivity(), ShowLikedUser.class);
+                                intent.putExtra("p", postkey);
+                                startActivity(intent);
+                            }
+                        });
+
 
                         holder.commentbtn.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -484,6 +664,31 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
                 alertDialog.dismiss();
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        try {
+
+            if (requestCode == PICK_IMAGE || resultCode == RESULT_OK ||
+                    data != null || data.getData() != null) {
+                imageUri = data.getData();
+
+                String url = imageUri.toString();
+                Intent intent = new Intent(getActivity(), StoryActivity.class);
+                intent.putExtra("u", url);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+
+            Toast.makeText(getActivity(), "error" + e, Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
 }

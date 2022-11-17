@@ -127,7 +127,7 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 //        // Disable screenshot in app
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
 
@@ -501,59 +501,59 @@ public class MessageActivity extends AppCompatActivity {
 
                             }
                         });
-//
-//
-//                        holder.sendertv.setOnLongClickListener(new View.OnLongClickListener() {
-//                            @Override
-//                            public boolean onLongClick(View view) {
-//                                createMessageDialog(delete, type, imageuri, date, time, sendername, audio);
-//
-//                                return false;
-//                            }
-//                        });
-//                        holder.iv_sender.setOnLongClickListener(new View.OnLongClickListener() {
-//                            @Override
-//                            public boolean onLongClick(View view) {
-//                                createMessageDialog(delete, type, imageuri, date, time, sendername, audio);
-//
-//                                return false;
-//                            }
-//                        });
-//                        holder.playsender.setOnLongClickListener(new View.OnLongClickListener() {
-//                            @Override
-//                            public boolean onLongClick(View view) {
-//                                createMessageDialog(delete, type, imageuri, date, time, sendername, audio);
-//
-//                                return false;
-//                            }
-//                        });
-//
-//                        holder.receivertv.setOnLongClickListener(new View.OnLongClickListener() {
-//                            @Override
-//                            public boolean onLongClick(View view) {
-//                                createMessageDialog(delete, type, imageuri, date, time, sendername, audio);
-//
-//                                return false;
-//                            }
-//                        });
-//                        holder.iv_receiver.setOnLongClickListener(new View.OnLongClickListener() {
-//                            @Override
-//                            public boolean onLongClick(View view) {
-//                                createMessageDialog(delete, type, imageuri, date, time, sendername, audio);
-//
-//                                return false;
-//                            }
-//                        });
-//                        holder.playreceiver.setOnLongClickListener(new View.OnLongClickListener() {
-//                            @Override
-//                            public boolean onLongClick(View view) {
-//                                createMessageDialog(delete, type, imageuri, date, time, sendername, audio);
-//
-//                                return false;
-//                            }
-//                        });
-//
-//
+
+
+                        holder.sendertv.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View view) {
+                                createMessageDialog(delete, type, imageuri, date, time, sendername, audio);
+
+                                return false;
+                            }
+                        });
+                        holder.iv_sender.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View view) {
+                                createMessageDialog(delete, type, imageuri, date, time, sendername, audio);
+
+                                return false;
+                            }
+                        });
+                        holder.playsender.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View view) {
+                                createMessageDialog(delete, type, imageuri, date, time, sendername, audio);
+
+                                return false;
+                            }
+                        });
+
+                        holder.receivertv.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View view) {
+                                createMessageDialog(delete, type, imageuri, date, time, sendername, audio);
+
+                                return false;
+                            }
+                        });
+                        holder.iv_receiver.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View view) {
+                                createMessageDialog(delete, type, imageuri, date, time, sendername, audio);
+
+                                return false;
+                            }
+                        });
+                        holder.playreceiver.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View view) {
+                                createMessageDialog(delete, type, imageuri, date, time, sendername, audio);
+
+                                return false;
+                            }
+                        });
+
+
                         holder.playreceiver.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -600,267 +600,267 @@ public class MessageActivity extends AppCompatActivity {
 
     }
 
-//    private void createMessageDialog(long delete, String type, String imageuri, String date, String time, String sendername, String audio) {
-//
-//        final Dialog dialog = new Dialog(MessageActivity.this);
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        dialog.setContentView(R.layout.message_options);
-//
-//        TextView unsend = dialog.findViewById(R.id.unsend_id);
-//        TextView details = dialog.findViewById(R.id.details_id);
-//        TextView download = dialog.findViewById(R.id.option1_id);
-//        TextView opt2 = dialog.findViewById(R.id.option2_id);
-//        TextView datetv = dialog.findViewById(R.id.date_mo);
-//        TextView timetv = dialog.findViewById(R.id.time_mo);
-//
-//
-//        if (type.equals("t")) {
-//            download.setVisibility(View.GONE);
-//        } else {
-//            download.setVisibility(View.VISIBLE);
-//        }
-//
-//        details.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                datetv.setVisibility(View.VISIBLE);
-//                timetv.setVisibility(View.VISIBLE);
-//                datetv.setText("Date :" + date);
-//                timetv.setText("Time :" + time);
-//
-//            }
-//        });
-//
-//        unsend.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//
-//                if (type.equals("t")) {
-//                    Query rootref = rootref1.orderByChild("delete").equalTo(delete);
-//                    rootref.addListenerForSingleValueEvent(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                            for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
-//                                dataSnapshot1.getRef().removeValue();
-//
-//                                Toast.makeText(MessageActivity.this, "deleted", Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError error) {
-//
-//                        }
-//                    });
-//
-//                    Query rootrefdel = rootref2.orderByChild("delete").equalTo(delete);
-//                    rootrefdel.addListenerForSingleValueEvent(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                            for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
-//                                dataSnapshot1.getRef().removeValue();
-//
-//                                Toast.makeText(MessageActivity.this, "deleted", Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError error) {
-//
-//                        }
-//                    });
-//
-//                    dialog.dismiss();
-//
-//
-//                } else if (type.equals("i")) {
-//
-//
-//                    Query rootref = rootref1.orderByChild("delete").equalTo(delete);
-//                    rootref.addListenerForSingleValueEvent(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                            for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
-//                                dataSnapshot1.getRef().removeValue();
-//
-//                                Toast.makeText(MessageActivity.this, "deleted", Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError error) {
-//
-//                        }
-//                    });
-//
-//                    Query rootrefdel = rootref2.orderByChild("delete").equalTo(delete);
-//                    rootrefdel.addListenerForSingleValueEvent(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                            for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
-//                                dataSnapshot1.getRef().removeValue();
-//
-//                                Toast.makeText(MessageActivity.this, "deleted", Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError error) {
-//
-//                        }
-//                    });
-//
-//
-//                    StorageReference reference = FirebaseStorage.getInstance().getReferenceFromUrl(imageuri);
-//                    reference.delete()
-//                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                @Override
-//                                public void onSuccess(Void aVoid) {
-//
-//                                    Toast.makeText(MessageActivity.this, "deleted", Toast.LENGTH_SHORT).show();
-//
-//
-//                                    dialog.dismiss();
-//                                }
-//                            });
-//                } else if (type.equals("a")) {
-//
-//
-//                    Query rootref = rootref1.orderByChild("delete").equalTo(delete);
-//                    rootref.addListenerForSingleValueEvent(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                            for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
-//                                dataSnapshot1.getRef().removeValue();
-//
-//                                Toast.makeText(MessageActivity.this, "deleted", Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError error) {
-//
-//                        }
-//                    });
-//
-//                    Query rootrefdel = rootref2.orderByChild("delete").equalTo(delete);
-//                    rootrefdel.addListenerForSingleValueEvent(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                            for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
-//                                dataSnapshot1.getRef().removeValue();
-//
-//                                Toast.makeText(MessageActivity.this, "deleted", Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError error) {
-//
-//                        }
-//                    });
-//
-//
-//                    StorageReference reference = FirebaseStorage.getInstance().getReferenceFromUrl(audio);
-//                    reference.delete()
-//                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                @Override
-//                                public void onSuccess(Void aVoid) {
-//                                    Toast.makeText(MessageActivity.this, "deleted", Toast.LENGTH_SHORT).show();
-//
-//                                    dialog.dismiss();
-//
-//                                }
-//                            });
-//
-//                }
-//            }
-//        });
-//
-//
-//        download.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//
-//                PermissionListener permissionListener = new PermissionListener() {
-//                    @Override
-//                    public void onPermissionGranted() {
-//
-//                        if (type.equals("i")) {
-//
-//                            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(imageuri));
-//                            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
-//                                    DownloadManager.Request.NETWORK_MOBILE);
-//                            request.setTitle("Download");
-//                            request.setDescription("Downloading image....");
-//                            request.allowScanningByMediaScanner();
-//                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-//                            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, sendername + System.currentTimeMillis() + ".jpg");
-//                            DownloadManager manager = (DownloadManager) MessageActivity.this.getSystemService(Context.DOWNLOAD_SERVICE);
-//                            manager.enqueue(request);
-//
-//                            Toast.makeText(MessageActivity.this, "downloaded", Toast.LENGTH_SHORT).show();
-//
-//                            dialog.dismiss();
-//
-//                        } else if (type.equals("a")) {
-//                            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(audio));
-//                            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
-//                                    DownloadManager.Request.NETWORK_MOBILE);
-//                            request.setTitle("Download");
-//                            request.setDescription("Downloading audio....");
-//                            request.allowScanningByMediaScanner();
-//                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-//                            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, sendername + System.currentTimeMillis() + ".mp3");
-//                            DownloadManager manager = (DownloadManager) MessageActivity.this.getSystemService(Context.DOWNLOAD_SERVICE);
-//                            manager.enqueue(request);
-//
-//                            Toast.makeText(MessageActivity.this, "downloaded", Toast.LENGTH_SHORT).show();
-//
-//
-//                            dialog.dismiss();
-//
-//                        }
-//
-//                    }
-//
-//                    @Override
-//                    public void onPermissionDenied(List<String> deniedPermissions) {
-//
-//                        Toast.makeText(MessageActivity.this, "error", Toast.LENGTH_SHORT).show();
-//                        dialog.dismiss();
-//                    }
-//                };
-//                TedPermission.with(MessageActivity.this)
-//                        .setPermissionListener(permissionListener)
-//                        .setPermissions(Manifest.permission.INTERNET, Manifest.permission.READ_EXTERNAL_STORAGE)
-//                        .check();
-//
-//
-//                dialog.dismiss();
-//
-//
-//            }
-//        });
-//
-//
-//        dialog.show();
-//        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//        dialog.getWindow().getAttributes().windowAnimations = R.style.Bottomanim;
-//        dialog.getWindow().setGravity(Gravity.BOTTOM);
-//
-//
-//    }
+    private void createMessageDialog(long delete, String type, String imageuri, String date, String time, String sendername, String audio) {
+
+        final Dialog dialog = new Dialog(MessageActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.message_options);
+
+        TextView unsend = dialog.findViewById(R.id.unsend_id);
+        TextView details = dialog.findViewById(R.id.details_id);
+        TextView download = dialog.findViewById(R.id.option1_id);
+        TextView opt2 = dialog.findViewById(R.id.option2_id);
+        TextView datetv = dialog.findViewById(R.id.date_mo);
+        TextView timetv = dialog.findViewById(R.id.time_mo);
+
+
+        if (type.equals("t")) {
+            download.setVisibility(View.GONE);
+        } else {
+            download.setVisibility(View.VISIBLE);
+        }
+
+        details.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                datetv.setVisibility(View.VISIBLE);
+                timetv.setVisibility(View.VISIBLE);
+                datetv.setText("Date :" + date);
+                timetv.setText("Time :" + time);
+
+            }
+        });
+
+        unsend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                if (type.equals("t")) {
+                    Query rootref = rootref1.orderByChild("delete").equalTo(delete);
+                    rootref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
+                                dataSnapshot1.getRef().removeValue();
+
+                                Toast.makeText(MessageActivity.this, "deleted", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                    Query rootrefdel = rootref2.orderByChild("delete").equalTo(delete);
+                    rootrefdel.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
+                                dataSnapshot1.getRef().removeValue();
+
+                                Toast.makeText(MessageActivity.this, "deleted", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                    dialog.dismiss();
+
+
+                } else if (type.equals("i")) {
+
+
+                    Query rootref = rootref1.orderByChild("delete").equalTo(delete);
+                    rootref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
+                                dataSnapshot1.getRef().removeValue();
+
+                                Toast.makeText(MessageActivity.this, "deleted", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                    Query rootrefdel = rootref2.orderByChild("delete").equalTo(delete);
+                    rootrefdel.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
+                                dataSnapshot1.getRef().removeValue();
+
+                                Toast.makeText(MessageActivity.this, "deleted", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
+                    StorageReference reference = FirebaseStorage.getInstance().getReferenceFromUrl(imageuri);
+                    reference.delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+
+                                    Toast.makeText(MessageActivity.this, "deleted", Toast.LENGTH_SHORT).show();
+
+
+                                    dialog.dismiss();
+                                }
+                            });
+                } else if (type.equals("a")) {
+
+
+                    Query rootref = rootref1.orderByChild("delete").equalTo(delete);
+                    rootref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
+                                dataSnapshot1.getRef().removeValue();
+
+                                Toast.makeText(MessageActivity.this, "deleted", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                    Query rootrefdel = rootref2.orderByChild("delete").equalTo(delete);
+                    rootrefdel.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
+                                dataSnapshot1.getRef().removeValue();
+
+                                Toast.makeText(MessageActivity.this, "deleted", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
+                    StorageReference reference = FirebaseStorage.getInstance().getReferenceFromUrl(audio);
+                    reference.delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(MessageActivity.this, "deleted", Toast.LENGTH_SHORT).show();
+
+                                    dialog.dismiss();
+
+                                }
+                            });
+
+                }
+            }
+        });
+
+
+        download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                PermissionListener permissionListener = new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted() {
+
+                        if (type.equals("i")) {
+
+                            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(imageuri));
+                            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
+                                    DownloadManager.Request.NETWORK_MOBILE);
+                            request.setTitle("Download");
+                            request.setDescription("Downloading image....");
+                            request.allowScanningByMediaScanner();
+                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, sendername + System.currentTimeMillis() + ".jpg");
+                            DownloadManager manager = (DownloadManager) MessageActivity.this.getSystemService(Context.DOWNLOAD_SERVICE);
+                            manager.enqueue(request);
+
+                            Toast.makeText(MessageActivity.this, "downloaded", Toast.LENGTH_SHORT).show();
+
+                            dialog.dismiss();
+
+                        } else if (type.equals("a")) {
+                            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(audio));
+                            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
+                                    DownloadManager.Request.NETWORK_MOBILE);
+                            request.setTitle("Download");
+                            request.setDescription("Downloading audio....");
+                            request.allowScanningByMediaScanner();
+                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, sendername + System.currentTimeMillis() + ".mp3");
+                            DownloadManager manager = (DownloadManager) MessageActivity.this.getSystemService(Context.DOWNLOAD_SERVICE);
+                            manager.enqueue(request);
+
+                            Toast.makeText(MessageActivity.this, "downloaded", Toast.LENGTH_SHORT).show();
+
+
+                            dialog.dismiss();
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onPermissionDenied(List<String> deniedPermissions) {
+
+                        Toast.makeText(MessageActivity.this, "error", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                };
+                TedPermission.create()
+                        .setPermissionListener(permissionListener)
+                        .setPermissions(Manifest.permission.INTERNET, Manifest.permission.READ_EXTERNAL_STORAGE)
+                        .check();
+
+
+                dialog.dismiss();
+
+
+            }
+        });
+
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.Bottomanim;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+
+
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void SendMessage() {
