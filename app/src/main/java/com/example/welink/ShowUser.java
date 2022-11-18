@@ -148,23 +148,23 @@ public class ShowUser extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-//
-//
-//        websitetv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                try {
-//
-//                    String url = websitetv.getText().toString();
-//                    Intent intent = new Intent(Intent.ACTION_VIEW);
-//                    intent.setData(Uri.parse(url));
-//                    startActivity(intent);
-//
-//                }catch (Exception e){
-//                    Toast.makeText(ShowUser.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+
+
+        websitetv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+
+                    String url = websitetv.getText().toString();
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(url));
+                    startActivity(intent);
+
+                }catch (Exception e){
+                    Toast.makeText(ShowUser.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         postnoref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

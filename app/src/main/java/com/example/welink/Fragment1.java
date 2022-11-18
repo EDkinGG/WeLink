@@ -2,13 +2,20 @@ package com.example.welink;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -20,6 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +41,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -51,7 +61,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener{
 
     private static int PICK_IMAGE = 1;
     Uri imageUri;
-    FirebaseAuth auth;
+    FirebaseAuth mAuth;
 
     int postiv,post1,post2,newcount;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -108,7 +118,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener{
         newtv.setOnClickListener(this);
 
 
-        auth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
 
 //        logoutBtn.setOnClickListener(new View.OnClickListener() {
@@ -131,8 +141,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener{
                 startActivity(intent);
                 break;
             case R.id.ib_menu_f1:
-                BottomSheetMenu bottomSheetMenu = new BottomSheetMenu();
-                bottomSheetMenu.show(getFragmentManager(),"bottomsheet");
+                showBottomSheet();
                 break;
             case R.id.iv_f1:
                Intent intent1 = new Intent(getActivity(),ImageActivity.class);
@@ -172,6 +181,155 @@ public class Fragment1 extends Fragment implements View.OnClickListener{
                 }
                 break;
         }
+    }
+
+    private void showBottomSheet() {
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.bottom_sheet_menu);
+
+        ImageView logout,privacy,settings,delete;
+
+        logout = dialog.findViewById(R.id.logout_profile);
+        privacy = dialog.findViewById(R.id.privacy_profile);
+        delete = dialog.findViewById(R.id.del_profile);
+        settings = dialog.findViewById(R.id.settings_profile);
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Logout")
+                        .setMessage("Are you sure to Logout")
+                        .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                mAuth.signOut();
+
+                                FirebaseDatabase.getInstance().getReference("Token").child(userid).child("token").removeValue();
+                                startActivity(new Intent(getActivity(),LoginActivity.class));
+
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+                builder.create();
+                builder.show();
+
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Delete Profile")
+                        .setMessage("Are you sure to delete?")
+                        .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                //   StorageReference reference = FirebaseStorage.getInstance().getReferenceFromUrl()
+
+                                deleteImage();
+                                reference.delete()
+
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+
+                                                Toast.makeText(getActivity(), "Profile deleted", Toast.LENGTH_SHORT).show();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+
+                                                Toast.makeText(getActivity(), "Profile delete failed", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+                builder.create();
+                builder.show();
+
+
+
+            }
+        });
+
+        privacy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(getActivity(),PrivacyActivity.class));
+
+            }
+        });
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(getActivity(),SettingsActivity.class));
+
+            }
+        });
+
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.Bottomanim;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+    }
+
+    private void deleteImage() {
+
+        reference.get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                        if (task.getResult().exists()) {
+
+                            String Url = task.getResult().getString("url");
+                            StorageReference reference = FirebaseStorage.getInstance().getReferenceFromUrl(Url);
+                            reference.delete()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+
+
+                                        }
+                                    });
+
+                        } else {
+
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                    }
+
+                });
     }
 
 

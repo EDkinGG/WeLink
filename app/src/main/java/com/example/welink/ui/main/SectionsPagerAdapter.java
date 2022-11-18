@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.welink.ImageTab;
 import com.example.welink.R;
-import com.example.welink.StoriesTab;
 import com.example.welink.VideoTab;
 
 /**
@@ -20,7 +19,7 @@ import com.example.welink.VideoTab;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -38,9 +37,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 fragment =new VideoTab();
                 break;
-            case 2:
-                fragment =new StoriesTab();
-                break;
         }
         return fragment;
     }
@@ -54,6 +50,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 2 total pages.
-        return 3;
+        return 2;
     }
 }
