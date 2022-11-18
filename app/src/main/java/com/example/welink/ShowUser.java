@@ -685,7 +685,7 @@ public class ShowUser extends AppCompatActivity {
             newMember.setSeen("no");
             newMember.setText("Started Following you ");
 
-//            sendNotification(userid,name_result);
+            sendNotification(userid,name_result);
             ntref.child(currentUserId+"f").setValue(newMember);
 
 
@@ -699,41 +699,41 @@ public class ShowUser extends AppCompatActivity {
             databaseReference.child(currentUserId).setValue(requestMember);
             requesttv.setText("Wait Until your request is accepted");
 
-//            sendNotification2(userid,name_result);
+            sendNotification2(userid,name_result);
 
         }
     }
 
-//    private void sendNotification2(String userid, String name_result) {
-//
-//        FirebaseDatabase.getInstance().getReference().child(userid).child("token").addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                usertoken = snapshot.getValue(String.class);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                FcmNotificationsSender notificationsSender =
-//                        new FcmNotificationsSender(usertoken,"Social Media",name_result+" Sent You Follow request",
-//                                getApplicationContext(),ShowUser.this);
-//
-//                notificationsSender.SendNotifications();
-//
-//            }
-//        },3000);
-//
-//    }
+    private void sendNotification2(String userid, String name_result) {
+
+        FirebaseDatabase.getInstance().getReference().child(userid).child("token").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                usertoken = snapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                FcmNotificationsSender notificationsSender =
+                        new FcmNotificationsSender(usertoken,"Social Media",name_result+" Sent You Follow request",
+                                getApplicationContext(),ShowUser.this);
+
+                notificationsSender.SendNotifications();
+
+            }
+        },3000);
+
+    }
 
     private void unFollow() {
 
@@ -763,36 +763,36 @@ public class ShowUser extends AppCompatActivity {
         builder.show();
     }
 
-//    private void sendNotification(String userid,String name_result){
-//
-//        FirebaseDatabase.getInstance().getReference().child(userid).child("token").addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                usertoken = snapshot.getValue(String.class);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                FcmNotificationsSender notificationsSender =
-//                        new FcmNotificationsSender(usertoken,"Social Media",name_result+" Started Following you",
-//                                getApplicationContext(),ShowUser.this);
-//
-//                notificationsSender.SendNotifications();
-//
-//            }
-//        },3000);
-//
-//    }
+    private void sendNotification(String userid,String name_result){
+
+        FirebaseDatabase.getInstance().getReference().child(userid).child("token").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                usertoken = snapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                FcmNotificationsSender notificationsSender =
+                        new FcmNotificationsSender(usertoken,"Social Media",name_result+" Started Following you",
+                                getApplicationContext(),ShowUser.this);
+
+                notificationsSender.SendNotifications();
+
+            }
+        },3000);
+
+    }
 
 //    public void checkIncoming(){
 //

@@ -75,16 +75,16 @@ public class MessageActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ImageView imageView;
-    ImageButton sendbtn, cambtn, micbtn; // vcbtn;
+    ImageButton sendbtn, cambtn, micbtn,vcbtn;
     TextView username, typingtv;
     EditText messageEt;
     UploadTask uploadTask;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference rootref1, rootref2, typingref;// cancelRef;
+    DatabaseReference rootref1, rootref2, typingref,cancelRef;
     MessageMember messageMember;
 
     Boolean typingchecker = false;
-    String receiver_name, receiver_uid, sender_uid, url;// usertoken;
+    String receiver_name, receiver_uid, sender_uid, url,usertoken;
 //    DatabaseReference checkVideocallRef;
     String senderuid;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -198,7 +198,7 @@ public class MessageActivity extends AppCompatActivity {
         rootref2 = database.getReference("Message").child(receiver_uid).child(sender_uid);
 
         typingref = database.getReference("typing");
-//
+
 
         mediaRecorder = new MediaRecorder();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -897,7 +897,7 @@ public class MessageActivity extends AppCompatActivity {
             rootref2.child(id1).setValue(messageMember);
 
 
-//            sendNotification(receiver_uid, receiver_name, message);
+            sendNotification(receiver_uid, receiver_name, message);
             messageEt.setText("");
 
 
@@ -913,38 +913,38 @@ public class MessageActivity extends AppCompatActivity {
     }
 
 
-//    private void sendNotification(String receiver_uid, String receiver_name, String message) {
-//
-//        FirebaseDatabase.getInstance().getReference().child(receiver_uid).child("token")
-//                .addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                        usertoken = snapshot.getValue(String.class);
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
-//
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                FcmNotificationsSender notificationsSender =
-//                        new FcmNotificationsSender(usertoken, "Social Media", receiver_name + ": " + message,
-//                                getApplicationContext(), MessageActivity.this);
-//
-//                notificationsSender.SendNotifications();
-//
-//            }
-//        }, 3000);
-//
-//    }
-//
+    private void sendNotification(String receiver_uid, String receiver_name, String message) {
+
+        FirebaseDatabase.getInstance().getReference().child(receiver_uid).child("token")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        usertoken = snapshot.getValue(String.class);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                FcmNotificationsSender notificationsSender =
+                        new FcmNotificationsSender(usertoken, "Social Media", receiver_name + ": " + message,
+                                getApplicationContext(), MessageActivity.this);
+
+                notificationsSender.SendNotifications();
+
+            }
+        }, 3000);
+
+    }
+
 //    public void checkIncoming() {
 //
 //        checkVideocallRef = database.getReference("vc");

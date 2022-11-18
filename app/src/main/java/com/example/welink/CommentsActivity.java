@@ -264,7 +264,7 @@ public class CommentsActivity extends AppCompatActivity {
 
             String key = ntref.push().getKey();
             ntref.child(key).setValue(newMember);
-//            sendNotification(bundleuid, name_result, comment);
+            sendNotification(bundleuid, name_result, comment);
 
             Toast.makeText(this, "Commented", Toast.LENGTH_SHORT).show();
 
@@ -274,37 +274,37 @@ public class CommentsActivity extends AppCompatActivity {
 
     }
 
-//    private void sendNotification(String bundleuid, String name_result, String comment) {
-//
-//        FirebaseDatabase.getInstance().getReference().child(bundleuid).child("token")
-//                .addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                        usertoken = snapshot.getValue(String.class);
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
-//
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                FcmNotificationsSender notificationsSender =
-//                        new FcmNotificationsSender(usertoken, "Social Media", name_result + " Commented on your post: " + comment,
-//                                getApplicationContext(), CommentsActivity.this);
-//
-//                notificationsSender.SendNotifications();
-//
-//            }
-//        }, 3000);
-//
-//    }
+    private void sendNotification(String bundleuid, String name_result, String comment) {
+
+        FirebaseDatabase.getInstance().getReference().child(bundleuid).child("token")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        usertoken = snapshot.getValue(String.class);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                FcmNotificationsSender notificationsSender =
+                        new FcmNotificationsSender(usertoken, "Social Media", name_result + " Commented on your post: " + comment,
+                                getApplicationContext(), CommentsActivity.this);
+
+                notificationsSender.SendNotifications();
+
+            }
+        }, 3000);
+
+    }
 
 //    public void checkIncoming() {
 //

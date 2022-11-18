@@ -79,4 +79,8 @@ dependencies {
 
     implementation 'com.github.shts:StoriesProgressView:3.0.0'
 
+
+    implementation 'com.google.firebase:firebase-messaging:23.1.0'
+    implementation 'com.android.volley:volley:1.2.1'
+
 }

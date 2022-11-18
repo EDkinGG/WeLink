@@ -16,6 +16,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.view.Gravity;
@@ -345,7 +346,7 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
 
                                                 ntref.child(currentUserid + "l").setValue(newMember);
 
-//                                                sendNotification(userid, name_result);
+                                                sendNotification(userid, name_result);
                                                 likechecker = false;
 
 
@@ -690,5 +691,74 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
 
 
     }
+
+
+    private void sendNotification(String userid, String name_result) {
+
+        FirebaseDatabase.getInstance().getReference("Token").child(userid).child("token")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        usertoken = snapshot.getValue(String.class);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                FcmNotificationsSender notificationsSender =
+                        new FcmNotificationsSender(usertoken, "Social Media", name_result + " Liked Your post ",
+                                getContext(), getActivity());
+
+                notificationsSender.SendNotifications();
+
+            }
+        }, 3000);
+
+    }
+
+//    public void checkIncoming() {
+//
+//        checkVideocallRef = database.getReference("vc");
+//
+//
+//        try {
+//
+//            checkVideocallRef.child(currentuid).addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//                    if (snapshot.exists()) {
+//
+//                        senderuid = snapshot.child("calleruid").getValue().toString();
+//                        Intent intent = new Intent(getActivity(), VideoCallinComing.class);
+//                        intent.putExtra("uid", senderuid);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        startActivity(intent);
+//                    } else {
+//
+//
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//
+//                }
+//            });
+//        } catch (Exception e) {
+//
+//            //   Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//        }
+//
+//    }
 
 }

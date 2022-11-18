@@ -312,7 +312,7 @@ public class Fragment3 extends Fragment {
                                 databaseReference.child(currentUserId).child(uid).removeValue();
 
                                 Toast.makeText(getActivity(), "Accepted", Toast.LENGTH_SHORT).show();
-//                                sendNotification(currentUserId, name);
+                                sendNotification(currentUserId, name);
                                 decline(name);
 
 
@@ -365,37 +365,37 @@ public class Fragment3 extends Fragment {
         });
     }
 
-//    private void sendNotification(String currentUserId, String name) {
-//
-//        FirebaseDatabase.getInstance().getReference().child(currentUserId).child("token")
-//                .addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                        usertoken = snapshot.getValue(String.class);
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
-//
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                FcmNotificationsSender notificationsSender =
-//                        new FcmNotificationsSender(usertoken, "Social Media", name + " Started Following you",
-//                                getContext(), getActivity());
-//
-//                notificationsSender.SendNotifications();
-//
-//            }
-//        }, 3000);
-//
-//    }
+    private void sendNotification(String currentUserId, String name) {
+
+        FirebaseDatabase.getInstance().getReference().child(currentUserId).child("token")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        usertoken = snapshot.getValue(String.class);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                FcmNotificationsSender notificationsSender =
+                        new FcmNotificationsSender(usertoken, "Social Media", name + " Started Following you",
+                                getContext(), getActivity());
+
+                notificationsSender.SendNotifications();
+
+            }
+        }, 3000);
+
+    }
 
 //    public void checkIncoming() {
 //
