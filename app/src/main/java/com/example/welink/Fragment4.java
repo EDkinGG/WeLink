@@ -108,7 +108,7 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
         reference = database.getReference("All posts");
         likeref = database.getReference("post likes");
 //        reportClass = new ReportClass();
-//        checkIncoming();
+        checkIncoming();
         storyRef = database.getReference("All story");
         referenceDel = database.getReference("story");
 
@@ -715,7 +715,7 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
             public void run() {
 
                 FcmNotificationsSender notificationsSender =
-                        new FcmNotificationsSender(usertoken, "Social Media", name_result + " Liked Your post ",
+                        new FcmNotificationsSender(usertoken, "WeLink ", name_result + " Liked Your post ",
                                 getContext(), getActivity());
 
                 notificationsSender.SendNotifications();
@@ -725,40 +725,40 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
 
     }
 
-//    public void checkIncoming() {
-//
-//        checkVideocallRef = database.getReference("vc");
-//
-//
-//        try {
-//
-//            checkVideocallRef.child(currentuid).addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                    if (snapshot.exists()) {
-//
-//                        senderuid = snapshot.child("calleruid").getValue().toString();
-//                        Intent intent = new Intent(getActivity(), VideoCallinComing.class);
-//                        intent.putExtra("uid", senderuid);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        startActivity(intent);
-//                    } else {
-//
-//
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//
-//                }
-//            });
-//        } catch (Exception e) {
-//
-//            //   Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//        }
-//
-//    }
+    public void checkIncoming() {
+
+        checkVideocallRef = database.getReference("vc");
+
+
+        try {
+
+            checkVideocallRef.child(currentuid).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    if (snapshot.exists()) {
+
+                        senderuid = snapshot.child("calleruid").getValue().toString();
+                        Intent intent = new Intent(getActivity(), VideoCallinComing.class);
+                        intent.putExtra("uid", senderuid);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    } else {
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        } catch (Exception e) {
+
+            //   Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+    }
 
 }

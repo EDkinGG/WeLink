@@ -75,7 +75,7 @@ public class StoryActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.pb_storyUp);
         imageView = findViewById(R.id.iv_storyup);
 
-//        checkIncoming();
+        checkIncoming();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         currenUid = user.getUid();
@@ -207,40 +207,40 @@ public class StoryActivity extends AppCompatActivity {
 
     }
 
-//    public void checkIncoming(){
-//
-//        checkVideocallRef = database.getReference("vc");
-//
-//
-//        try {
-//
-//            checkVideocallRef.child(currentuid).addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                    if (snapshot.exists()){
-//
-//                        senderuid = snapshot.child("calleruid").getValue().toString();
-//                        Intent intent = new Intent(StoryActivity.this,VideoCallinComing.class);
-//                        intent.putExtra("uid",senderuid );
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        startActivity(intent);
-//                    }else {
-//
-//
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//
-//                }
-//            });
-//        }catch (Exception e){
-//
-//            //   Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//        }
-//
-//
-//    }
+    public void checkIncoming(){
+
+        checkVideocallRef = database.getReference("vc");
+
+
+        try {
+
+            checkVideocallRef.child(currentuid).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    if (snapshot.exists()){
+
+                        senderuid = snapshot.child("calleruid").getValue().toString();
+                        Intent intent = new Intent(StoryActivity.this,VideoCallinComing.class);
+                        intent.putExtra("uid",senderuid );
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }else {
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }catch (Exception e){
+
+            //   Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
 }

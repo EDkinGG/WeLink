@@ -51,17 +51,16 @@
             android:textSize="15sp"
             android:textColor="@color/start" />
 
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:id="@+id/btn_vc"
-            android:layout_marginStart="20dp"
-            android:layout_gravity="center"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_baseline_videocam_24"
-            android:layout_marginLeft="20dp" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:id="@+id/btn_vc"
+                android:layout_marginStart="20dp"
+                android:layout_gravity="right"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_baseline_videocam_24"
+                android:layout_marginLeft="20dp" />
 
 
     </LinearLayout>

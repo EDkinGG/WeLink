@@ -38,11 +38,11 @@ public class ChatActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     RecyclerView recyclerView;
     EditText searchEt;
-//    CheckVideoCall checkVideoCall;
-//    DatabaseReference checkVideocallRef;
-//    String senderuid;
-//    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//    String currentuid = user.getUid();
+    CheckVideoCall checkVideoCall;
+    DatabaseReference checkVideocallRef;
+    String senderuid;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    String currentuid = user.getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class ChatActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(ChatActivity.this));
         profileRef = database.getReference("ALl Users");
 
-//        checkIncoming();
+        checkIncoming();
 
         searchEt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -204,41 +204,41 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
-//    public void checkIncoming(){
-//
-//        checkVideocallRef = database.getReference("vc");
-//
-//
-//        try {
-//
-//            checkVideocallRef.child(currentuid).addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                    if (snapshot.exists()){
-//
-//                        senderuid = snapshot.child("calleruid").getValue().toString();
-//                        Intent intent = new Intent(ChatActivity.this,VideoCallinComing.class);
-//                        intent.putExtra("uid",senderuid );
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        startActivity(intent);
-//                    }else {
-//
-//
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//
-//                }
-//            });
-//        }catch (Exception e){
-//
-//            //   Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//        }
-//
-//
-//    }
+    public void checkIncoming(){
+
+        checkVideocallRef = database.getReference("vc");
+
+
+        try {
+
+            checkVideocallRef.child(currentuid).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    if (snapshot.exists()){
+
+                        senderuid = snapshot.child("calleruid").getValue().toString();
+                        Intent intent = new Intent(ChatActivity.this,VideoCallinComing.class);
+                        intent.putExtra("uid",senderuid );
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }else {
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }catch (Exception e){
+
+            //   Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
 
 }

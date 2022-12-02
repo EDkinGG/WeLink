@@ -30,8 +30,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -65,6 +68,11 @@ public class PostActivity extends AppCompatActivity {
     String type;
     Postmember postmembers;
 
+    DatabaseReference checkVideocallRef;
+    String senderuid;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    String currentuid = user.getUid();
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -91,6 +99,8 @@ public class PostActivity extends AppCompatActivity {
         db1 = database.getReference("All images").child(currentuid);
         db2 = database.getReference("All videos").child(currentuid);
         db3 = database.getReference("All posts");
+
+        checkIncoming();
 
 
         btnuploadfile.setOnClickListener(new View.OnClickListener() {
@@ -257,5 +267,40 @@ public class PostActivity extends AppCompatActivity {
             Toast.makeText(this,"Please fill all Fields", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    public void checkIncoming(){
+
+        checkVideocallRef = database.getReference("vc");
+
+
+        try {
+
+            checkVideocallRef.child(currentuid).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    if (snapshot.exists()){
+
+                        senderuid = snapshot.child("calleruid").getValue().toString();
+                        Intent intent = new Intent(PostActivity.this,VideoCallinComing.class);
+                        intent.putExtra("uid",senderuid );
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }else {
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }catch (Exception e){
+
+            //   Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 }

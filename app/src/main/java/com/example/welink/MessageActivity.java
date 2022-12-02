@@ -85,7 +85,7 @@ public class MessageActivity extends AppCompatActivity {
 
     Boolean typingchecker = false;
     String receiver_name, receiver_uid, sender_uid, url,usertoken;
-//    DatabaseReference checkVideocallRef;
+    DatabaseReference checkVideocallRef;
     String senderuid;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String currentuid = user.getUid();
@@ -132,36 +132,36 @@ public class MessageActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
 
         setContentView(R.layout.activity_message);
-//
-//
-//        vcbtn = findViewById(R.id.btn_vc);
-//
-//        checkIncoming();
-//
-//        try {
-//
-//            SharedPreferences sharedPreferences = getSharedPreferences("SharedPrefs",MODE_PRIVATE);
-//
-//
-//
-//
-//            final boolean isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn",false);
-//
-//
-//            if (isDarkModeOn){
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//
-//            }else {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//
-//            }
-//        }catch (Exception e){
-//            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//
-//        }
-//
-//
-//        cancelRef = database.getInstance().getReference("cancel");
+
+
+        vcbtn = findViewById(R.id.btn_vc);
+
+        checkIncoming();
+
+        try {
+
+            SharedPreferences sharedPreferences = getSharedPreferences("SharedPrefs",MODE_PRIVATE);
+
+
+
+
+            final boolean isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn",false);
+
+
+            if (isDarkModeOn){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+            }else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+            }
+        }catch (Exception e){
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+        }
+
+
+        cancelRef = database.getInstance().getReference("cancel");
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -172,7 +172,7 @@ public class MessageActivity extends AppCompatActivity {
             Toast.makeText(this, "user missing", Toast.LENGTH_SHORT).show();
         }
 
-//        cancelRef.removeValue();
+        cancelRef.removeValue();
 
         messageMember = new MessageMember();
 
@@ -208,16 +208,16 @@ public class MessageActivity extends AppCompatActivity {
 
 
 
-//        vcbtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Intent intent = new Intent(MessageActivity.this, VideoCallOutgoing.class);
-//                intent.putExtra("uid", receiver_uid);
-//                startActivity(intent);
-//
-//            }
-//        });
+        vcbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(MessageActivity.this, VideoCallOutgoing.class);
+                intent.putExtra("uid", receiver_uid);
+                startActivity(intent);
+
+            }
+        });
 
         sendbtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -945,40 +945,40 @@ public class MessageActivity extends AppCompatActivity {
 
     }
 
-//    public void checkIncoming() {
-//
-//        checkVideocallRef = database.getReference("vc");
-//
-//
-//        try {
-//
-//            checkVideocallRef.child(currentuid).addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                    if (snapshot.exists()) {
-//
-//                        senderuid = snapshot.child("calleruid").getValue().toString();
-//                        Intent intent = new Intent(MessageActivity.this, VideoCallinComing.class);
-//                        intent.putExtra("uid", senderuid);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        startActivity(intent);
-//                    } else {
-//
-//
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//
-//                }
-//            });
-//        } catch (Exception e) {
-//
-//            //   Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//        }
-//
-//    }
+    public void checkIncoming() {
+
+        checkVideocallRef = database.getReference("vc");
+
+
+        try {
+
+            checkVideocallRef.child(currentuid).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    if (snapshot.exists()) {
+
+                        senderuid = snapshot.child("calleruid").getValue().toString();
+                        Intent intent = new Intent(MessageActivity.this, VideoCallinComing.class);
+                        intent.putExtra("uid", senderuid);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    } else {
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        } catch (Exception e) {
+
+            //   Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+    }
 
 }

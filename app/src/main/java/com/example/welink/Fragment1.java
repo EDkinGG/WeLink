@@ -65,7 +65,10 @@ public class Fragment1 extends Fragment implements View.OnClickListener{
 
     int postiv,post1,post2,newcount;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference db1,db2,db3,ntRef;
+    DatabaseReference db1,db2,db3,ntRef,checkVideocallRef;
+    String senderuid;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    String currentuid = user.getUid();
 
     @Nullable
     @Override
@@ -119,6 +122,10 @@ public class Fragment1 extends Fragment implements View.OnClickListener{
 
 
         mAuth = FirebaseAuth.getInstance();
+
+
+
+        checkIncoming();
 
 
 //        logoutBtn.setOnClickListener(new View.OnClickListener() {
@@ -534,6 +541,44 @@ public class Fragment1 extends Fragment implements View.OnClickListener{
 
             }
         });
+
+    }
+
+    public void checkIncoming(){
+
+        checkVideocallRef = database.getReference("vc");
+
+
+        try {
+
+            checkVideocallRef.child(currentuid).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    if (snapshot.exists()){
+
+                        senderuid = snapshot.child("calleruid").getValue().toString();
+                        Intent intent = new Intent(getActivity(),VideoCallinComing.class);
+                        intent.putExtra("uid",senderuid );
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }else {
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }catch (Exception e){
+
+            //   Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+
 
     }
 }

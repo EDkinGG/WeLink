@@ -22,8 +22,22 @@
         android:theme="@style/Theme.WeLink"
         tools:targetApi="31">
         <activity
-            android:name=".SettingsActivity"
+            android:name=".VideoCallOutgoing"
             android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".VideoCallinComing"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

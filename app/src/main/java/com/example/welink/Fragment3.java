@@ -62,7 +62,7 @@ public class Fragment3 extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         currentUserId = user.getUid();
 
-//        checkIncoming();
+        checkIncoming();
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("Requests").child(currentUserId);
         profileRef = database.getReference("ALl Users");
@@ -397,42 +397,42 @@ public class Fragment3 extends Fragment {
 
     }
 
-//    public void checkIncoming() {
-//
-//        checkVideocallRef = FirebaseDatabase.getInstance().getReference("vc");
-//
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        String currentuid = user.getUid();
-//
-//        try {
-//
-//            checkVideocallRef.child(currentuid).addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                    if (snapshot.exists()) {
-//
-//                        senderuid = snapshot.child("calleruid").getValue().toString();
-//                        Intent intent = new Intent(getActivity(), VideoCallinComing.class);
-//                        intent.putExtra("uid", senderuid);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        startActivity(intent);
-//                    } else {
-//
-//
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//
-//                }
-//            });
-//        } catch (Exception e) {
-//
-//            //   Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//        }
-//
-//
-//    }
+    public void checkIncoming() {
+
+        checkVideocallRef = FirebaseDatabase.getInstance().getReference("vc");
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String currentuid = user.getUid();
+
+        try {
+
+            checkVideocallRef.child(currentuid).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    if (snapshot.exists()) {
+
+                        senderuid = snapshot.child("calleruid").getValue().toString();
+                        Intent intent = new Intent(getActivity(), VideoCallinComing.class);
+                        intent.putExtra("uid", senderuid);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    } else {
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        } catch (Exception e) {
+
+            //   Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
 }

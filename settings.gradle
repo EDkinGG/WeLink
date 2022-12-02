@@ -10,9 +10,11 @@ dependencyResolutionManagement {
     repositories {
         google()
         jcenter()
-        maven { url "https://jitpack.io/" }
         maven {
-            url "https://github.com/jitsi/jitsi-maven-repository/raw/master/releases"}
+            url "https://github.com/jitsi/jitsi-maven-repository/raw/master/releases"
+        }
+        mavenCentral()
+        maven { url 'https://www.jitpack.io' }
     }
 }
 rootProject.name = "WeLink"
