@@ -2,8 +2,12 @@ package com.example.welink;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -24,10 +28,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import org.jitsi.meet.sdk.BroadcastEvent;
+import org.jitsi.meet.sdk.BroadcastIntentHelper;
+import org.jitsi.meet.sdk.JitsiMeet;
 import org.jitsi.meet.sdk.JitsiMeetActivity;
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
+import org.jitsi.meet.sdk.log.JitsiMeetLogger;
 
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
+
+import timber.log.Timber;
 
 public class VideoCallinComing extends AppCompatActivity {
 
@@ -39,6 +51,15 @@ public class VideoCallinComing extends AppCompatActivity {
     FloatingActionButton declinebtn,acceptbtn;
     TextView tvname,tvprof;
     MediaPlayer mp;
+
+    //--1
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            onBroadcastReceived(intent);
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,16 +75,50 @@ public class VideoCallinComing extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         receiver_uid = user.getUid();
 
+        //---2
+        URL serverURL;
+        try {
+            // object creation of JitsiMeetConferenceOptions
+            // class by the name of options
+//            JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
+//                    .setServerURL(new URL("https://meet.jit.si"))
+//                    .setWelcomePageEnabled(false)
+//                    .build();
+
+            serverURL = new URL("https://meet.jit.si");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Invalid server URL!");
+        }
+
+        JitsiMeetConferenceOptions defaultOptions
+                = new JitsiMeetConferenceOptions.Builder()
+                .setServerURL(serverURL)
+                // When using JaaS, set the obtained JWT here
+                //.setToken("MyJWT")
+                // Different features flags can be set
+                // .setFeatureFlag("toolbox.enabled", false)
+                // .setFeatureFlag("filmstrip.enabled", false)
+                .setFeatureFlag("welcomepage.enabled", false)
+                .build();
+        JitsiMeet.setDefaultConferenceOptions(defaultOptions);
+        registerForBroadcastMessages();
+
         Bundle bundle = getIntent().getExtras();
         if (bundle!= null){
+//            checkIncoming();
             sender_uid = bundle.getString("uid");
+            Toast.makeText(this, "Data 11111111", Toast.LENGTH_SHORT).show();
 
         }else {
             Toast.makeText(this, "Data missing", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent (VideoCallinComing.this, ChatActivity.class);
+            startActivity(intent);
         }
 
         model = new VcModel();
         checkCallstatus();
+//        checkIncoming();
         referencecaller = database.getReference("ALl Users").child(sender_uid);
 
         referencecaller.addValueEventListener(new ValueEventListener() {
@@ -101,7 +156,7 @@ public class VideoCallinComing extends AppCompatActivity {
             mp = MediaPlayer.create(getApplicationContext(),notification);
             mp.start();
         }catch (Exception e){
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "msg22222222222222 "+e.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
 
@@ -111,9 +166,9 @@ public class VideoCallinComing extends AppCompatActivity {
 
                 String response = "yes";
                 sendResponse(response);
-                mp.stop();
                 vcref.removeValue();
                 referenceVc.removeValue();
+                mp.stop();
             }
         });
 
@@ -123,7 +178,7 @@ public class VideoCallinComing extends AppCompatActivity {
 
                 String response = "no";
                 sendResponse(response);
-                Intent intent = new Intent(VideoCallinComing.this,MessageActivity.class);
+                Intent intent = new Intent(VideoCallinComing.this,ChatActivity.class);
                 startActivity(intent);
                 vcref.removeValue();
                 referenceVc.removeValue();
@@ -132,6 +187,8 @@ public class VideoCallinComing extends AppCompatActivity {
             }
         });
     }
+
+
 
     private void checkCallstatus() {
 
@@ -160,8 +217,11 @@ public class VideoCallinComing extends AppCompatActivity {
                     }
 
                 }else {
-
-                    // Toast.makeText(VideoCallOutgoing.this, "Not responding", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(VideoCallinComing.this, "kappa", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(VideoCallinComing.this, ChatActivity.class);
+//                    startActivity(intent);
+//                    mp.stop();
+//                    finish();
                 }
 
             }
@@ -181,13 +241,19 @@ public class VideoCallinComing extends AppCompatActivity {
             model.setResponse(response);
             referenceVc.child("res").setValue(model);
             joinmeeting();
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    referenceVc.removeValue();
-                }
-            },3000);
+            Toast.makeText(this, "Call granted", Toast.LENGTH_SHORT).show();
+//            Handler handler = new Handler();
+//            handler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    Intent intent = new Intent(VideoCallinComing.this, ChatActivity.class);
+////                        intent.putExtra("uid", senderuid);
+////                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    startActivity(intent);
+//                    finish();
+////                    referenceVc.removeValue();
+//                }
+//            },3000);
 
 
         }else if (response.equals("no")){
@@ -199,9 +265,11 @@ public class VideoCallinComing extends AppCompatActivity {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    referenceVc.removeValue();
+//                    referenceVc.removeValue();
                 }
             },3000);
+
+            finish();
 
         }
 
@@ -213,17 +281,27 @@ public class VideoCallinComing extends AppCompatActivity {
 
         try {
 
-            JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
-                    .setServerURL(new URL("https://meet.jit.si"))
+//            JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
+//                    .setRoom(sender_name+receiver_uid)
+//                    .build();
+//            JitsiMeetActivity.launch(VideoCallinComing.this,options);
+//            finish();
+
+            JitsiMeetConferenceOptions options
+                    = new JitsiMeetConferenceOptions.Builder()
                     .setRoom(sender_name+receiver_uid)
-                    .setWelcomePageEnabled(false)
+                    // Settings for audio and video
+                    //.setAudioMuted(true)
+                    //.setVideoMuted(true)
                     .build();
-            JitsiMeetActivity.launch(VideoCallinComing.this,options);
+            // Launch the new activity with the given options. The launch() method takes care
+            // of creating the required Intent and passing the options.
+            JitsiMeetActivity.launch(this, options);
             finish();
 
         }catch (Exception e){
 
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "msg33333333 "+e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
 
@@ -235,11 +313,127 @@ public class VideoCallinComing extends AppCompatActivity {
 
         String response = "no";
         sendResponse(response);
-        Intent intent = new Intent(VideoCallinComing.this,MessageActivity.class);
+        Intent intent = new Intent(VideoCallinComing.this,ChatActivity.class);
         startActivity(intent);
         mp.stop();
         vcref.removeValue();
         finish();
 
     }
+
+
+    //extra
+    public void checkIncoming() {
+
+        vcref = FirebaseDatabase.getInstance().getReference("vc");
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String currentuid = user.getUid();
+
+        try {
+
+            vcref.child(currentuid).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    if (snapshot.exists()) {
+
+
+                    } else {
+                        //                        senderuid = snapshot.child("calleruid").getValue().toString();
+                        Intent intent = new Intent(VideoCallinComing.this, ChatActivity.class);
+//                        intent.putExtra("uid", senderuid);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        } catch (Exception e) {
+
+            //   Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+
+    //-3
+    @Override
+    protected void onDestroy() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
+
+        super.onDestroy();
+    }
+
+    private void registerForBroadcastMessages() {
+        IntentFilter intentFilter = new IntentFilter();
+
+        /* This registers for every possible event sent from JitsiMeetSDK
+           If only some of the events are needed, the for loop can be replaced
+           with individual statements:
+           ex:  intentFilter.addAction(BroadcastEvent.Type.AUDIO_MUTED_CHANGED.getAction());
+                intentFilter.addAction(BroadcastEvent.Type.CONFERENCE_TERMINATED.getAction());
+                ... other events
+         */
+        for (BroadcastEvent.Type type : BroadcastEvent.Type.values()) {
+            intentFilter.addAction(type.getAction());
+        }
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, intentFilter);
+    }
+
+    // Example for handling different JitsiMeetSDK events
+    private void onBroadcastReceived(Intent intent) {
+        if (intent != null) {
+            BroadcastEvent event = new BroadcastEvent(intent);
+
+            switch (event.getType()) {
+                case CONFERENCE_JOINED:
+                    Timber.i("Conference Joined with url%s", event.getData().get("url"));
+                    break;
+                case PARTICIPANT_JOINED:
+                    Timber.i("Participant joined%s", event.getData().get("name"));
+                    break;
+                case CONFERENCE_TERMINATED:
+                    Toast.makeText(VideoCallinComing.this, "Call Ended", Toast.LENGTH_SHORT).show();
+                    Intent intent1 = new Intent(VideoCallinComing.this, MainActivity.class);
+//                    intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent1);
+                    mp.stop();
+                    finishAffinity();
+                    break;
+                case PARTICIPANT_LEFT:
+                    Toast.makeText(VideoCallinComing.this, "Call ended", Toast.LENGTH_SHORT).show();
+                    Intent intent2 = new Intent(VideoCallinComing.this, MainActivity.class);
+//                    intent2.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
+                    startActivity(intent2);
+                    mp.stop();
+                    finishAffinity();
+                    break;
+                default :
+//                    Toast.makeText(VideoCallinComing.this, "kappa33", Toast.LENGTH_SHORT).show();
+                    Intent intent3 = new Intent(VideoCallinComing.this, MainActivity.class);
+//                    intent3.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
+                    startActivity(intent3);
+                    mp.stop();
+                    finishAffinity();
+
+            }
+        }
+    }
+
+//    Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP
+    // Example for sending actions to JitsiMeetSDK
+    private void hangUp() {
+        Intent hangupBroadcastIntent = BroadcastIntentHelper.buildHangUpIntent();
+        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(hangupBroadcastIntent);
+    }
+
+
 }

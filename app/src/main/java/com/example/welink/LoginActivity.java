@@ -92,14 +92,13 @@ public class LoginActivity extends AppCompatActivity {
 
                 if( !TextUtils.isEmpty(email) && !TextUtils.isEmpty(pass) )
                 {
-                    Toast.makeText(LoginActivity.this, "helooooooo", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.VISIBLE);
                     mAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful())
                             {
-                                Toast.makeText(LoginActivity.this, "GGEZ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Logged in", Toast.LENGTH_SHORT).show();
                                 sendtoMain();
                             }
                             else
@@ -108,8 +107,12 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "Error :"+error, Toast.LENGTH_SHORT);
                             }
                         }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(LoginActivity.this, "Wrong Login Credentials", Toast.LENGTH_SHORT).show();
+                        }
                     });
-                    Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
 
                 }
                 else

@@ -562,6 +562,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener{
                         intent.putExtra("uid",senderuid );
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
+                        getActivity().finish();
                     }else {
 
 
@@ -581,4 +582,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener{
 
 
     }
+
+
 }

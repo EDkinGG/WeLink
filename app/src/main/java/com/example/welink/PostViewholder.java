@@ -29,7 +29,8 @@ import java.util.Collections;
 
 public class PostViewholder extends RecyclerView.ViewHolder {
 
-    ImageView imageViewprofile,iv_post;
+    ImageView iv_post;
+    ImageButton imageViewprofile;
     TextView tv_name, tv_desc, tv_likes,tv_comment,tv_time,tv_nameprofile;
     ImageButton likebtn,menuoptions,commentbtn;
     DatabaseReference likesref,commentref;

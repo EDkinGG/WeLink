@@ -19,10 +19,24 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+    }
+
     buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            signingConfig signingConfigs.debug
         }
     }
     compileOptions {
@@ -40,6 +54,8 @@ android {
 
 dependencies {
 
+    implementation fileTree(dir: 'libs' , includes: ['*.jar'])
+
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -48,6 +64,9 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+
+    implementation 'androidx.work:work-runtime-ktx:2.7.0'
+
 
     implementation platform('com.google.firebase:firebase-bom:30.4.1')
 
@@ -83,6 +102,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:23.1.0'
     implementation 'com.android.volley:volley:1.2.1'
 
-    implementation ('org.jitsi.react:jitsi-meet-sdk:2.+') { transitive = true }
+    implementation ('org.jitsi.react:jitsi-meet-sdk:5.1.0') { transitive = true }
 
 }

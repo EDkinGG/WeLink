@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,13 +22,16 @@ import com.squareup.picasso.Picasso;
 
 public class ProductDetailsActivity extends AppCompatActivity {
 
-    ImageView iv_product, iv_profile;
+    ImageView iv_product;
+    ImageButton ib_profile;
 
     TextView tv_head,tv_location, tv_contact, tv_description, tv_price,tv_product_category;
 
     Button button;
 
     DatabaseReference ref;
+
+    String name,userid,url;//for messaging
 
     DatabaseReference checkVideocallRef;
     String senderuid;
@@ -41,7 +46,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product_details);
 
         iv_product = findViewById(R.id.iv_product_product);
-        iv_profile = findViewById(R.id.iv_profile_product);
+        ib_profile = findViewById(R.id.ib_profile_product);
 
         tv_head = findViewById(R.id.tv_head_product);
         tv_product_category = findViewById(R.id.tv_productCategory_product);
@@ -64,9 +69,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
                 if( snapshot.exists() )
                 {
-                    String name = snapshot.child("name").getValue().toString();
-                    String url = snapshot.child("url").getValue().toString();
-                    String userid = snapshot.child("userid").getValue().toString();
+                    name = snapshot.child("name").getValue().toString();
+                    url = snapshot.child("url").getValue().toString();
+                    userid = snapshot.child("userid").getValue().toString();
                     String key = snapshot.child("key").getValue().toString();
                     String privacy = snapshot.child("privacy").getValue().toString();
                     String time = snapshot.child("time").getValue().toString();
@@ -79,7 +84,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     String description = snapshot.child("description").getValue().toString();
 
                     Picasso.get().load(productImgUrl).into(iv_product);
-                    Picasso.get().load(url).into(iv_profile);
+                    Picasso.get().load(url).into(ib_profile);
 
                     tv_head.setText(product);
                     tv_product_category.setText(category);
@@ -93,6 +98,28 @@ public class ProductDetailsActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        ib_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProductDetailsActivity.this, ShowUser.class);
+                intent.putExtra("n",name);
+                intent.putExtra("u",url);
+                intent.putExtra("uid",userid);
+                startActivity(intent);
+            }
+        });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProductDetailsActivity.this, MessageActivity.class);
+                intent.putExtra("n",name);
+                intent.putExtra("u",url);
+                intent.putExtra("uid",userid);
+                startActivity(intent);
             }
         });
 

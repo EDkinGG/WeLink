@@ -307,6 +307,23 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
                             }
                         });
 
+                        holder.imageViewprofile.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (currentUserid.equals(userid)) {
+                                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                                    startActivity(intent);
+
+                                } else {
+                                    Intent intent = new Intent(getActivity(), ShowUser.class);
+                                    intent.putExtra("n", name);
+                                    intent.putExtra("u", url);
+                                    intent.putExtra("uid", userid);
+                                    startActivity(intent);
+                                }
+                            }
+                        });
+
                         holder.likebtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

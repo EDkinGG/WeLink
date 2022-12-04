@@ -2,8 +2,12 @@ package com.example.welink;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -21,10 +25,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import org.jitsi.meet.sdk.BroadcastEvent;
+import org.jitsi.meet.sdk.BroadcastIntentHelper;
+import org.jitsi.meet.sdk.JitsiMeet;
 import org.jitsi.meet.sdk.JitsiMeetActivity;
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
 
+import java.net.MalformedURLException;
 import java.net.URL;
+
+import timber.log.Timber;
 
 public class VideoCallOutgoing extends AppCompatActivity {
 
@@ -37,10 +47,20 @@ public class VideoCallOutgoing extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     VideoCallModel videoCallModel;
 
+    //--1
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            onBroadcastReceived(intent);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_call_outgoing);
+
+
         model = new VcModel();
 
         videoCallModel  = new VideoCallModel();
@@ -52,14 +72,45 @@ public class VideoCallOutgoing extends AppCompatActivity {
         tvprof = findViewById(R.id.prof_og_vc);
         declinebtn = findViewById(R.id.decline_vc_og);
 
+        //-2
+        URL serverURL;
+        try {
+            // object creation of JitsiMeetConferenceOptions
+            // class by the name of options
+//            JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
+//                    .setServerURL(new URL("https://meet.jit.si"))
+//                    .setWelcomePageEnabled(false)
+//                    .build();
+
+            serverURL = new URL("https://meet.jit.si");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Invalid server URL!");
+        }
+
+        JitsiMeetConferenceOptions defaultOptions
+                = new JitsiMeetConferenceOptions.Builder()
+                .setServerURL(serverURL)
+                // When using JaaS, set the obtained JWT here
+                //.setToken("MyJWT")
+                // Different features flags can be set
+                // .setFeatureFlag("toolbox.enabled", false)
+                // .setFeatureFlag("filmstrip.enabled", false)
+                .setFeatureFlag("welcomepage.enabled", false)
+                .build();
+        JitsiMeet.setDefaultConferenceOptions(defaultOptions);
+        registerForBroadcastMessages();
+
 
 
         Bundle bundle = getIntent().getExtras();
         if (bundle!= null){
             reciver_uid = bundle.getString("uid");
-
+            Toast.makeText(this, "Data gottt", Toast.LENGTH_SHORT).show();
         }else {
             Toast.makeText(this, "Data missing", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent (VideoCallOutgoing.this, ChatActivity.class);
+            startActivity(intent);
         }
 
         reference = database.getReference("ALl Users").child(reciver_uid);
@@ -116,9 +167,10 @@ public class VideoCallOutgoing extends AppCompatActivity {
         cancelRef = database.getInstance().getReference("cancel");
 
         model.setResponse("no");
+        model.setKey("120");
         cancelRef.child(sender_uid).setValue(model);
         Toast.makeText(this, "Call ended", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(VideoCallOutgoing.this,MessageActivity.class);
+        Intent intent = new Intent(VideoCallOutgoing.this,ChatActivity.class);
         startActivity(intent);
         reference_response.removeValue();
         videocallref.removeValue();
@@ -128,8 +180,6 @@ public class VideoCallOutgoing extends AppCompatActivity {
     }//checked
 
     private void checkResponse() {
-
-
 
         reference_response.child("res").addValueEventListener(new ValueEventListener() {
             @Override
@@ -141,13 +191,16 @@ public class VideoCallOutgoing extends AppCompatActivity {
                     String response = snapshot.child("response").getValue().toString();
 
                     if (response.equals("yes")){
+                        reference_response.removeValue();
 
                         joinmeeting(key);
                         Toast.makeText(VideoCallOutgoing.this, "Call Accepted", Toast.LENGTH_SHORT).show();
 
                     }else  if (response.equals("no")){
+
                         Toast.makeText(VideoCallOutgoing.this, "Call denied", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(VideoCallOutgoing.this,MessageActivity.class);
+                        reference_response.removeValue();
+                        Intent intent = new Intent(VideoCallOutgoing.this,ChatActivity.class);
                         startActivity(intent);
                         finish();
                     }
@@ -170,12 +223,22 @@ public class VideoCallOutgoing extends AppCompatActivity {
 
         try {
 
-            JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
-                    .setServerURL(new URL("https://meet.jit.si"))
+//            JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
+//                    .setRoom(key)
+//                    .build();
+//            JitsiMeetActivity.launch(VideoCallOutgoing.this,options);
+//            finish();
+
+            JitsiMeetConferenceOptions options
+                    = new JitsiMeetConferenceOptions.Builder()
                     .setRoom(key)
-                    .setWelcomePageEnabled(false)
+                    // Settings for audio and video
+                    //.setAudioMuted(true)
+                    //.setVideoMuted(true)
                     .build();
-            JitsiMeetActivity.launch(VideoCallOutgoing.this,options);
+            // Launch the new activity with the given options. The launch() method takes care
+            // of creating the required Intent and passing the options.
+            JitsiMeetActivity.launch(this, options);
             finish();
 
         }catch (Exception e){
@@ -220,5 +283,52 @@ public class VideoCallOutgoing extends AppCompatActivity {
         },1000);
 
 
+    }
+
+    //-3
+    @Override
+    protected void onDestroy() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
+
+        super.onDestroy();
+    }
+
+    private void registerForBroadcastMessages() {
+        IntentFilter intentFilter = new IntentFilter();
+
+        /* This registers for every possible event sent from JitsiMeetSDK
+           If only some of the events are needed, the for loop can be replaced
+           with individual statements:
+           ex:  intentFilter.addAction(BroadcastEvent.Type.AUDIO_MUTED_CHANGED.getAction());
+                intentFilter.addAction(BroadcastEvent.Type.CONFERENCE_TERMINATED.getAction());
+                ... other events
+         */
+        for (BroadcastEvent.Type type : BroadcastEvent.Type.values()) {
+            intentFilter.addAction(type.getAction());
+        }
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, intentFilter);
+    }
+
+    // Example for handling different JitsiMeetSDK events
+    private void onBroadcastReceived(Intent intent) {
+        if (intent != null) {
+            BroadcastEvent event = new BroadcastEvent(intent);
+
+            switch (event.getType()) {
+                case CONFERENCE_JOINED:
+                    Timber.i("Conference Joined with url%s", event.getData().get("url"));
+                    break;
+                case PARTICIPANT_JOINED:
+                    Timber.i("Participant joined%s", event.getData().get("name"));
+                    break;
+            }
+        }
+    }
+
+    // Example for sending actions to JitsiMeetSDK
+    private void hangUp() {
+        Intent hangupBroadcastIntent = BroadcastIntentHelper.buildHangUpIntent();
+        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(hangupBroadcastIntent);
     }
 }
