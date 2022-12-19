@@ -36,7 +36,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         button = findViewById(R.id.darkmode);
-//        showblockusersTv = findViewById(R.id.blocktv);
+        showblockusersTv = findViewById(R.id.blocktv);
 
 
         checkIncoming();
@@ -48,15 +48,15 @@ public class SettingsActivity extends AppCompatActivity {
         final boolean isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn",false);
 
 
-//        showblockusersTv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Intent intent = new Intent(SettingsActivity.this,ShowBlocked.class);
-//                startActivity(intent);
-//
-//            }
-//        });
+        showblockusersTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(SettingsActivity.this,ShowBlockedUser.class);
+                startActivity(intent);
+
+            }
+        });
 
 
         if (isDarkModeOn){

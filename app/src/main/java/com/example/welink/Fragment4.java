@@ -25,7 +25,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -59,7 +61,9 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 
 import java.security.Permission;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Fragment4 extends Fragment implements View.OnClickListener{
     ImageButton button;
@@ -75,7 +79,7 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String currentuid = user.getUid();
 
-//    ReportCLass reportCLass;
+    ReportClass reportClass;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DocumentReference documentReference;
@@ -107,7 +111,7 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
 
         reference = database.getReference("All posts");
         likeref = database.getReference("post likes");
-//        reportClass = new ReportClass();
+        reportClass = new ReportClass();
         checkIncoming();
         storyRef = database.getReference("All story");
         referenceDel = database.getReference("story");
@@ -284,7 +288,8 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
                         holder.menuoptions.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                showDialog(name,url,time,userid,type);
+//                                Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
+                                showDialog(name,url,time,userid,type,postkey,useruri);
                             }
                         });
 
@@ -475,20 +480,22 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
 
     }
 
-    void showDialog(String  name , String  url , String  time , String userid, String type )
+    void showDialog(String  name , String  url , String  time , String userid, String type ,String postkey , String useruri )
     {
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
-        View view = inflater.inflate(R.layout.post_options,null);
-        TextView download = view.findViewById(R.id.download_tv_post);
-        TextView share = view.findViewById(R.id.share_tv_post);
-        TextView delete = view.findViewById(R.id.delete_tv_post);
-        TextView copyurl = view.findViewById(R.id.copyurl_tv_post);
+//        Toast.makeText(getActivity(), "Hello there", Toast.LENGTH_SHORT).show();
 
-        AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
-                .setView(view)
-                .create();
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.post_options);
 
-        alertDialog.show();
+        TextView download = dialog.findViewById(R.id.download_tv_post);
+        TextView share = dialog.findViewById(R.id.share_tv_post);
+        TextView delete = dialog.findViewById(R.id.delete_tv_post);
+        TextView copyurl = dialog.findViewById(R.id.copyurl_tv_post);
+        TextView edit = dialog.findViewById(R.id.edit_post);
+        TextView reporttv = dialog.findViewById(R.id.report_tv_post);
+        EditText captionEt = dialog.findViewById(R.id.et_caption);
+        Button button = dialog.findViewById(R.id.btn_edit_caption);
 
 
 
@@ -497,9 +504,51 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
 
         if(userid.equals(currentUserid)){
             delete.setVisibility(View.VISIBLE);
+            edit.setVisibility(View.VISIBLE);
         }else{
-            delete.setVisibility(View.INVISIBLE);
+            delete.setVisibility(View.GONE);
+            edit.setVisibility(View.GONE);
         }
+        
+        
+        reporttv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showReportsheet(name,url,useruri,userid,type,postkey,time);
+            }
+        });
+
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                captionEt.setVisibility(View.VISIBLE);
+                button.setVisibility(View.VISIBLE);
+
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("desc", captionEt.getText().toString());
+
+                        FirebaseDatabase.getInstance().getReference()
+                                .child("All posts")
+                                .child(postkey)
+                                .updateChildren(map)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                        Toast.makeText(getActivity(), "Updated", Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();
+                                    }
+                                });
+
+                    }
+                });
+            }
+        });
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -564,7 +613,7 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
                                     }
                                 });
 
-                alertDialog.dismiss();
+                dialog.dismiss();
             }
         });
 
@@ -589,7 +638,7 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
 
                            Toast.makeText(getActivity(), "Downloading", Toast.LENGTH_SHORT).show();
 
-                           alertDialog.dismiss();
+                           dialog.dismiss();
                        }else{
                            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
                            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI|
@@ -604,7 +653,7 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
 
                            Toast.makeText(getActivity(), "Downloading", Toast.LENGTH_SHORT).show();
 
-                           alertDialog.dismiss();
+                           dialog.dismiss();
                        }
                    }
 
@@ -633,7 +682,7 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
 
                     Toast.makeText(getActivity(), "Downloading", Toast.LENGTH_SHORT).show();
 
-                    alertDialog.dismiss();
+                    dialog.dismiss();
                 }else{
                     DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
                     request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI|
@@ -648,7 +697,7 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
 
                     Toast.makeText(getActivity(), "Downloading", Toast.LENGTH_SHORT).show();
 
-                    alertDialog.dismiss();
+                    dialog.dismiss();
                 }
             }
         });
@@ -665,7 +714,7 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
                 intent.setType("text/plain");
                 startActivity(intent.createChooser(intent,"share via"));
 
-                alertDialog.dismiss();
+                dialog.dismiss();
             }
         });
 
@@ -679,10 +728,208 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
                 clip.getDescription();
                 Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
 
-                alertDialog.dismiss();
+                dialog.dismiss();
             }
         });
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.Bottomanim;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+
     }
+
+    private void showReportsheet(String name, String url, String useruri, String userid, String type, String postkey, String time) {
+
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.report_file_post);
+
+        Button cancel = dialog.findViewById(R.id.cancel_report_post);
+        Button submitreport = dialog.findViewById(R.id.submit_report_post);
+
+        RadioButton sexualrb = dialog.findViewById(R.id.sexualTv_report);
+        RadioButton violentrb = dialog.findViewById(R.id.violenTv_report);
+        RadioButton hatefulrb = dialog.findViewById(R.id.hatefulTv_report);
+        RadioButton harassmentrb = dialog.findViewById(R.id.harassmentTv_report);
+        RadioButton childrb = dialog.findViewById(R.id.childTv_report);
+        RadioButton infringesrb = dialog.findViewById(R.id.infringesTv_report);
+        RadioButton spamrb = dialog.findViewById(R.id.spamTv_report);
+        RadioButton terrorismrb = dialog.findViewById(R.id.terrorismTv_report);
+
+        DatabaseReference reportRefPost = database.getReference("Report Post");
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dialog.dismiss();
+
+            }
+        });
+
+
+        submitreport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (sexualrb.isChecked()){
+
+                    reportClass.setIssue("Sexual Content");
+                    reportClass.setName(name);
+                    reportClass.setTime(time);
+                    reportClass.setType(type);
+                    reportClass.setUid(userid);
+                    reportClass.setUrl(url);
+                    reportClass.setUseruri(useruri);
+
+                    String key = reportRefPost.push().getKey();
+                    reportRefPost.child(key).setValue(reportClass).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getActivity(), "Reported Successfully", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
+
+                }else if (violentrb.isChecked()){
+
+                    reportClass.setIssue("Violent of repulsive ");
+                    reportClass.setName(name);
+                    reportClass.setTime(time);
+                    reportClass.setType(type);
+                    reportClass.setUid(userid);
+                    reportClass.setUrl(url);
+                    reportClass.setUseruri(useruri);
+
+                    String key = reportRefPost.push().getKey();
+                    reportRefPost.child(key).setValue(reportClass).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getActivity(), "Reported Successfully", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }else if (hatefulrb.isChecked()){
+
+                    reportClass.setIssue("Hateful of abusive content");
+                    reportClass.setName(name);
+                    reportClass.setTime(time);
+                    reportClass.setType(type);
+                    reportClass.setUid(userid);
+                    reportClass.setUrl(url);
+                    reportClass.setUseruri(useruri);
+
+                    String key = reportRefPost.push().getKey();
+                    reportRefPost.child(key).setValue(reportClass).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getActivity(), "Reported Successfully", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }else if (childrb.isChecked()){
+
+                    reportClass.setIssue("Child Abuse");
+                    reportClass.setName(name);
+                    reportClass.setTime(time);
+                    reportClass.setType(type);
+                    reportClass.setUid(userid);
+                    reportClass.setUrl(url);
+                    reportClass.setUseruri(useruri);
+
+                    String key = reportRefPost.push().getKey();
+                    reportRefPost.child(key).setValue(reportClass).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getActivity(), "Reported Successfully", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }else if (infringesrb.isChecked()){
+
+                    reportClass.setIssue("Infringes my rights");
+                    reportClass.setName(name);
+                    reportClass.setTime(time);
+                    reportClass.setType(type);
+                    reportClass.setUid(userid);
+                    reportClass.setUrl(url);
+                    reportClass.setUseruri(useruri);
+
+                    String key = reportRefPost.push().getKey();
+                    reportRefPost.child(key).setValue(reportClass).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getActivity(), "Reported Successfully", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }else if (terrorismrb.isChecked()){
+
+                    reportClass.setIssue(" Promotes Terrorism ");
+                    reportClass.setName(name);
+                    reportClass.setTime(time);
+                    reportClass.setType(type);
+                    reportClass.setUid(userid);
+                    reportClass.setUrl(url);
+                    reportClass.setUseruri(useruri);
+
+                    String key = reportRefPost.push().getKey();
+                    reportRefPost.child(key).setValue(reportClass).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getActivity(), "Reported Successfully", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }else if (spamrb.isChecked()){
+
+                    reportClass.setIssue("Spam or misleading");
+                    reportClass.setName(name);
+                    reportClass.setTime(time);
+                    reportClass.setType(type);
+                    reportClass.setUid(userid);
+                    reportClass.setUrl(url);
+                    reportClass.setUseruri(useruri);
+
+                    String key = reportRefPost.push().getKey();
+                    reportRefPost.child(key).setValue(reportClass).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getActivity(), "Reported Successfully", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }else if (harassmentrb.isChecked()){
+
+                    reportClass.setIssue("Harassment Content");
+                    reportClass.setName(name);
+                    reportClass.setTime(time);
+                    reportClass.setType(type);
+                    reportClass.setUid(userid);
+                    reportClass.setUrl(url);
+                    reportClass.setUseruri(useruri);
+
+                    String key = reportRefPost.push().getKey();
+                    reportRefPost.child(key).setValue(reportClass).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getActivity(), "Reported Successfully", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+
+
+
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.Bottomanim;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

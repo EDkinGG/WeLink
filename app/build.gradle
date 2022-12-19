@@ -99,9 +99,10 @@ dependencies {
     implementation 'com.github.shts:StoriesProgressView:3.0.0'
 
 
-    implementation 'com.google.firebase:firebase-messaging:23.1.0'
+    implementation 'com.google.firebase:firebase-messaging:23.1.1'
     implementation 'com.android.volley:volley:1.2.1'
 
     implementation ('org.jitsi.react:jitsi-meet-sdk:5.1.0') { transitive = true }
 
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }

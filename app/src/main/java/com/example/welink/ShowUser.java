@@ -118,25 +118,25 @@ public class ShowUser extends AppCompatActivity {
         db1 = database.getReference("All images").child(userid);
         db2 = database.getReference("All videos").child(userid);
 
-//        blockRef = database.getReference("Block users").child(currentuid);
-//        blocklistref = database.getReference("Blocklist").child(currentuid);
-//
+        blockRef = database.getReference("Block users").child(currentuid);
+        blocklistref = database.getReference("Blocklist").child(currentuid);
+
         ntref = database.getReference("notification").child(currentUserId);
-//
-//        blockRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.hasChild(userid)){
-//                    blockreporttv.setText("Unblock");
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
+
+        blockRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild(userid)){
+                    blockreporttv.setText("Unblock");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         sendmessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -204,248 +204,251 @@ public class ShowUser extends AppCompatActivity {
         });
 
 
-//        blockreporttv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                showBottomSheet();
-//
-//            }
-//        });
+        blockreporttv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showBottomSheet();
+
+            }
+        });
 
     }
-//    private void showBottomSheet() {
-//        final Dialog dialog = new Dialog(ShowUser.this);
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        dialog.setContentView(R.layout.report_block_bs);
-//
-//        ImageView report,block;
-//
-//
-//        report = dialog.findViewById(R.id.report_user);
-//        block = dialog.findViewById(R.id.block_user);
-//
-//        report.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                showReportSheet();
-//
-//            }
-//        });
-//
-//        block.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//
-//
-//                NewMember newMember =  new NewMember();
-//
-//                newMember.setName(name);
-//                newMember.setUrl(url);
-//                newMember.setUid(userid);
-//
-//
-//                blockRef.child(userid).setValue("blocked");
-//                String key = blocklistref.push().getKey();
-//                blocklistref.child(key).setValue(newMember);
-//                Toast.makeText(ShowUser.this, "User Blocked", Toast.LENGTH_SHORT).show();
-//
-//
-//
-//            }
-//        });
-//
-//
-//
-//
-//        dialog.show();
-//        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//        dialog.getWindow().getAttributes().windowAnimations = R.style.Bottomanim;
-//        dialog.getWindow().setGravity(Gravity.BOTTOM);
-//    }
-//
-//    private void showReportSheet() {
-//
-//        final Dialog dialog = new Dialog(ShowUser.this);
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        dialog.setContentView(R.layout.report_user_file_bs);
-//
-//
-//        reportRefUser = database.getReference("Report users");
-//
-//        ReportClass reportClass = new ReportClass();
-//
-//        LinearLayout pretendingll  = dialog.findViewById(R.id.pretending_ll);
-//        LinearLayout shoouldnotbehere  = dialog.findViewById(R.id.shouldnotberhere_ll);
-//
-//        Button button = dialog.findViewById(R.id.btn_report_user);
-//
-//        TextView pretendingtv = dialog.findViewById(R.id.pretending);
-//        TextView shouldnotberherTv = dialog.findViewById(R.id.shouldnothere);
-//
-//        RadioButton spam = dialog.findViewById(R.id.spam);
-//        RadioButton suicide = dialog.findViewById(R.id.suicide);
-//        RadioButton nudity = dialog.findViewById(R.id.nudity);
-//        RadioButton hatespeech = dialog.findViewById(R.id.hatespeech);
-//        RadioButton violence = dialog.findViewById(R.id.violence);
-//        RadioButton bullying = dialog.findViewById(R.id.bullying);
-//        RadioButton falseinfo = dialog.findViewById(R.id.falseinfo);
-//        RadioButton me = dialog.findViewById(R.id.me);
-//        RadioButton someoneIknow = dialog.findViewById(R.id.someoneiknow);
-//        RadioButton celeberity = dialog.findViewById(R.id.celebrity);
-//
-//
-//
-//        pretendingtv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                pretendingll.setVisibility(View.VISIBLE);
-//                shoouldnotbehere.setVisibility(View.GONE);
-//
-//            }
-//        });
-//
-//
-//        shouldnotberherTv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                pretendingll.setVisibility(View.GONE);
-//                shoouldnotbehere.setVisibility(View.VISIBLE);
-//
-//            }
-//        });
-//
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                if (spam.isChecked()){
-//
-//                    reportClass.setName(name);
-//                    reportClass.setUrl(url);
-//                    reportClass.setUid(userid);
-//                    reportClass.setIssue("Spam");
-//
-//                    String key = reportRefUser.push().getKey();
-//                    reportRefUser.child(key).setValue(reportClass);
-//                    Toast.makeText(ShowUser.this, "Reported", Toast.LENGTH_SHORT).show();
-//
-//
-//                }else if (suicide.isChecked()){
-//
-//                    reportClass.setName(name);
-//                    reportClass.setUrl(url);
-//                    reportClass.setUid(userid);
-//                    reportClass.setIssue("Suicide, Self injury");
-//
-//                    String key = reportRefUser.push().getKey();
-//                    reportRefUser.child(key).setValue(reportClass);
-//                    Toast.makeText(ShowUser.this, "Reported", Toast.LENGTH_SHORT).show();
-//                }else if (nudity.isChecked()){
-//                    reportClass.setName(name);
-//                    reportClass.setUrl(url);
-//                    reportClass.setUid(userid);
-//                    reportClass.setIssue("nudity or sexual activity");
-//
-//                    String key = reportRefUser.push().getKey();
-//                    reportRefUser.child(key).setValue(reportClass);
-//                    Toast.makeText(ShowUser.this, "Reported", Toast.LENGTH_SHORT).show();
-//                }else if (hatespeech.isChecked()){
-//
-//                    reportClass.setName(name);
-//                    reportClass.setUrl(url);
-//                    reportClass.setUid(userid);
-//                    reportClass.setIssue("hate speech or Symbols");
-//
-//                    String key = reportRefUser.push().getKey();
-//                    reportRefUser.child(key).setValue(reportClass);
-//                    Toast.makeText(ShowUser.this, "Reported", Toast.LENGTH_SHORT).show();
-//                }else if (violence.isChecked()){
-//
-//                    reportClass.setName(name);
-//                    reportClass.setUrl(url);
-//                    reportClass.setUid(userid);
-//                    reportClass.setIssue("Violence");
-//
-//                    String key = reportRefUser.push().getKey();
-//                    reportRefUser.child(key).setValue(reportClass);
-//                    Toast.makeText(ShowUser.this, "Reported", Toast.LENGTH_SHORT).show();
-//                }else if (bullying.isChecked()){
-//
-//                    reportClass.setName(name);
-//                    reportClass.setUrl(url);
-//                    reportClass.setUid(userid);
-//                    reportClass.setIssue("Bullying or harassment");
-//
-//                    String key = reportRefUser.push().getKey();
-//                    reportRefUser.child(key).setValue(reportClass);
-//                    Toast.makeText(ShowUser.this, "Reported", Toast.LENGTH_SHORT).show();
-//                }else if (falseinfo.isChecked()){
-//
-//                    reportClass.setName(name);
-//                    reportClass.setUrl(url);
-//                    reportClass.setUid(userid);
-//                    reportClass.setIssue("false info");
-//
-//                    String key = reportRefUser.push().getKey();
-//                    reportRefUser.child(key).setValue(reportClass);
-//                    Toast.makeText(ShowUser.this, "Reported", Toast.LENGTH_SHORT).show();
-//
-//
-//                }else if (me.isChecked()){
-//                    reportClass.setName(name);
-//                    reportClass.setUrl(url);
-//                    reportClass.setUid(userid);
-//                    reportClass.setIssue("pretending to be me");
-//                    reportClass.setType(currentuid);
-//
-//                    String key = reportRefUser.push().getKey();
-//                    reportRefUser.child(key).setValue(reportClass);
-//                    Toast.makeText(ShowUser.this, "Reported", Toast.LENGTH_SHORT).show();
-//
-//                }else if (someoneIknow.isChecked()){
-//                    reportClass.setName(name);
-//                    reportClass.setUrl(url);
-//                    reportClass.setUid(userid);
-//                    reportClass.setIssue("pretending to be someone I know");
-//                    reportClass.setType(currentuid);
-//
-//
-//                    String key = reportRefUser.push().getKey();
-//                    reportRefUser.child(key).setValue(reportClass);
-//                    Toast.makeText(ShowUser.this, "Reported", Toast.LENGTH_SHORT).show();
-//
-//                }else if (celeberity.isChecked()){
-//                    reportClass.setName(name);
-//                    reportClass.setUrl(url);
-//                    reportClass.setUid(userid);
-//                    reportClass.setIssue("pretending to be celebrity");
-//                    reportClass.setType(currentuid);
-//
-//                    String key = reportRefUser.push().getKey();
-//                    reportRefUser.child(key).setValue(reportClass);
-//                    Toast.makeText(ShowUser.this, "Reported", Toast.LENGTH_SHORT).show();
-//                }
-//
-//
-//
-//            }
-//        });
-//
-//
-//
-//
-//
-//        dialog.show();
-//        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//        dialog.getWindow().getAttributes().windowAnimations = R.style.Bottomanim;
-//        dialog.getWindow().setGravity(Gravity.BOTTOM);
-//
-//
-//    }
+
+
+    private void showBottomSheet() {
+        final Dialog dialog = new Dialog(ShowUser.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.report_block_bs);
+
+        ImageView report,block;
+
+
+        report = dialog.findViewById(R.id.report_user);
+        block = dialog.findViewById(R.id.block_user);
+
+        report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                showReportSheet();
+
+            }
+        });
+
+        block.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                NewMember newMember =  new NewMember();
+
+                newMember.setName(name);
+                newMember.setUrl(url);
+                newMember.setUid(userid);
+
+
+                blockRef.child(userid).setValue("blocked");
+                String key = blocklistref.push().getKey();
+                blocklistref.child(key).setValue(newMember);
+                Toast.makeText(ShowUser.this, "User Blocked", Toast.LENGTH_SHORT).show();
+
+
+
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.Bottomanim;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+    }
+
+    private void showReportSheet() {
+
+        final Dialog dialog = new Dialog(ShowUser.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.report_users_bs);
+
+        reportRefUser = database.getReference("Report users");
+
+        ReportClass reportClass = new ReportClass();
+
+        LinearLayout pretendingll  = dialog.findViewById(R.id.pretending_ll);
+        LinearLayout shoouldnotbehere  = dialog.findViewById(R.id.shouldnotberhere_ll);
+
+        Button button = dialog.findViewById(R.id.btn_report_user);
+
+        TextView pretendingtv = dialog.findViewById(R.id.pretending);
+        TextView shouldnotberherTv = dialog.findViewById(R.id.shouldnothere);
+
+        RadioButton spam = dialog.findViewById(R.id.spam);
+        RadioButton suicide = dialog.findViewById(R.id.suicide);
+        RadioButton nudity = dialog.findViewById(R.id.nudity);
+        RadioButton hatespeech = dialog.findViewById(R.id.hatespeech);
+        RadioButton violence = dialog.findViewById(R.id.violence);
+        RadioButton bullying = dialog.findViewById(R.id.bullying);
+        RadioButton falseinfo = dialog.findViewById(R.id.falseinfo);
+        RadioButton me = dialog.findViewById(R.id.me);
+        RadioButton someoneIknow = dialog.findViewById(R.id.someoneiknow);
+        RadioButton celeberity = dialog.findViewById(R.id.celebrity);
+
+
+
+        pretendingtv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pretendingll.setVisibility(View.VISIBLE);
+                shoouldnotbehere.setVisibility(View.GONE);
+
+            }
+        });
+
+
+        shouldnotberherTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pretendingll.setVisibility(View.GONE);
+                shoouldnotbehere.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (spam.isChecked()){
+
+                    reportClass.setName(name);
+                    reportClass.setUrl(url);
+                    reportClass.setUid(userid);
+                    reportClass.setIssue("Spam");
+                    reportClass.setType(currentuid);
+
+                    String key = reportRefUser.push().getKey();
+                    reportRefUser.child(key).setValue(reportClass);
+                    Toast.makeText(ShowUser.this, "Reported", Toast.LENGTH_SHORT).show();
+
+
+                }else if (suicide.isChecked()){
+
+                    reportClass.setName(name);
+                    reportClass.setUrl(url);
+                    reportClass.setUid(userid);
+                    reportClass.setIssue("Suicide, Self injury");
+                    reportClass.setType(currentuid);
+
+                    String key = reportRefUser.push().getKey();
+                    reportRefUser.child(key).setValue(reportClass);
+                    Toast.makeText(ShowUser.this, "Reported", Toast.LENGTH_SHORT).show();
+                }else if (nudity.isChecked()){
+                    reportClass.setName(name);
+                    reportClass.setUrl(url);
+                    reportClass.setUid(userid);
+                    reportClass.setIssue("nudity or sexual activity");
+                    reportClass.setType(currentuid);
+
+                    String key = reportRefUser.push().getKey();
+                    reportRefUser.child(key).setValue(reportClass);
+                    Toast.makeText(ShowUser.this, "Reported", Toast.LENGTH_SHORT).show();
+                }else if (hatespeech.isChecked()){
+
+                    reportClass.setName(name);
+                    reportClass.setUrl(url);
+                    reportClass.setUid(userid);
+                    reportClass.setIssue("hate speech or Symbols");
+                    reportClass.setType(currentuid);
+
+                    String key = reportRefUser.push().getKey();
+                    reportRefUser.child(key).setValue(reportClass);
+                    Toast.makeText(ShowUser.this, "Reported", Toast.LENGTH_SHORT).show();
+                }else if (violence.isChecked()){
+
+                    reportClass.setName(name);
+                    reportClass.setUrl(url);
+                    reportClass.setUid(userid);
+                    reportClass.setIssue("Violence");
+                    reportClass.setType(currentuid);
+
+                    String key = reportRefUser.push().getKey();
+                    reportRefUser.child(key).setValue(reportClass);
+                    Toast.makeText(ShowUser.this, "Reported", Toast.LENGTH_SHORT).show();
+                }else if (bullying.isChecked()){
+
+                    reportClass.setName(name);
+                    reportClass.setUrl(url);
+                    reportClass.setUid(userid);
+                    reportClass.setIssue("Bullying or harassment");
+                    reportClass.setType(currentuid);
+
+                    String key = reportRefUser.push().getKey();
+                    reportRefUser.child(key).setValue(reportClass);
+                    Toast.makeText(ShowUser.this, "Reported", Toast.LENGTH_SHORT).show();
+                }else if (falseinfo.isChecked()){
+
+                    reportClass.setName(name);
+                    reportClass.setUrl(url);
+                    reportClass.setUid(userid);
+                    reportClass.setIssue("false info");
+                    reportClass.setType(currentuid);
+
+                    String key = reportRefUser.push().getKey();
+                    reportRefUser.child(key).setValue(reportClass);
+                    Toast.makeText(ShowUser.this, "Reported", Toast.LENGTH_SHORT).show();
+
+
+                }else if (me.isChecked()){
+                    reportClass.setName(name);
+                    reportClass.setUrl(url);
+                    reportClass.setUid(userid);
+                    reportClass.setIssue("pretending to be me");
+                    reportClass.setType(currentuid);
+
+                    String key = reportRefUser.push().getKey();
+                    reportRefUser.child(key).setValue(reportClass);
+                    Toast.makeText(ShowUser.this, "Reported", Toast.LENGTH_SHORT).show();
+
+                }else if (someoneIknow.isChecked()){
+                    reportClass.setName(name);
+                    reportClass.setUrl(url);
+                    reportClass.setUid(userid);
+                    reportClass.setIssue("pretending to be someone I know");
+                    reportClass.setType(currentuid);
+
+
+                    String key = reportRefUser.push().getKey();
+                    reportRefUser.child(key).setValue(reportClass);
+                    Toast.makeText(ShowUser.this, "Reported", Toast.LENGTH_SHORT).show();
+
+                }else if (celeberity.isChecked()){
+                    reportClass.setName(name);
+                    reportClass.setUrl(url);
+                    reportClass.setUid(userid);
+                    reportClass.setIssue("pretending to be celebrity");
+                    reportClass.setType(currentuid);
+
+                    String key = reportRefUser.push().getKey();
+                    reportRefUser.child(key).setValue(reportClass);
+                    Toast.makeText(ShowUser.this, "Reported", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+            }
+        });
+
+
+
+
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.Bottomanim;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+
+
+    }
 
     private void delRequest() {
 
@@ -579,36 +582,36 @@ public class ShowUser extends AppCompatActivity {
                     }
                 });
 
-//        db1.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                if (snapshot.exists()){
-//                    postiv = (int)snapshot.getChildrenCount();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+        db1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-//        db2.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                if (snapshot.exists()){
-//                    postvv = (int)snapshot.getChildrenCount();
-//                    posts_tv.setText(Integer.toString(postiv+postvv));
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+                if (snapshot.exists()){
+                    postiv = (int)snapshot.getChildrenCount();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        db2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.exists()){
+                    postvv = (int)snapshot.getChildrenCount();
+                    posts_tv.setText(Integer.toString(postiv+postvv));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         // refernce for following
         databaseReference1.addValueEventListener(new ValueEventListener() {
             @Override

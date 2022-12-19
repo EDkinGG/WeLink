@@ -5,10 +5,12 @@ import android.net.Uri;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,9 +35,11 @@ public class PostViewholder extends RecyclerView.ViewHolder {
     ImageButton imageViewprofile;
     TextView tv_name, tv_desc, tv_likes,tv_comment,tv_time,tv_nameprofile;
     ImageButton likebtn,menuoptions,commentbtn;
-    DatabaseReference likesref,commentref;
+    DatabaseReference likesref,commentref,blockref;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     int likescount,commentcount;
+    CardView cardView;
+    LinearLayout linearLayout;
 
 
 
@@ -48,7 +52,6 @@ public class PostViewholder extends RecyclerView.ViewHolder {
     {
         imageViewprofile = itemView.findViewById(R.id.iv_profile_item);
         iv_post = itemView.findViewById(R.id.iv_post_item);
-        tv_comment = itemView.findViewById(R.id.tv_comment_post);
         tv_desc = itemView.findViewById(R.id.tv_desc_post);
         commentbtn = itemView.findViewById(R.id.commentbutton_posts);
         likebtn = itemView.findViewById(R.id.likebutton_posts);
@@ -56,6 +59,29 @@ public class PostViewholder extends RecyclerView.ViewHolder {
         menuoptions = itemView.findViewById(R.id.morebutton_posts);
         tv_time = itemView.findViewById(R.id.tv_time_post);
         tv_nameprofile = itemView.findViewById(R.id.tv_name_post);
+        cardView = itemView.findViewById(R.id.cv_post);
+        linearLayout = itemView.findViewById(R.id.ll_post);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String currentuid = user.getUid();
+
+        blockref = database.getReference("Block users").child(currentuid);
+
+        blockref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.hasChild(uid)){
+                    cardView.setVisibility(View.GONE);
+                    linearLayout.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
         SimpleExoPlayer exoPlayer;

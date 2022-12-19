@@ -41,6 +41,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -110,6 +111,9 @@ public class Fragment1 extends Fragment implements View.OnClickListener{
         imageButtonEdit = getActivity().findViewById(R.id.ib_edit_f1);
         imageButtonMenu = getActivity().findViewById(R.id.ib_menu_f1);
         postTv.setOnClickListener(this);
+
+        FirebaseMessaging.getInstance().subscribeToTopic("all");
+
 
         imageButtonEdit.setOnClickListener(this);
         imageButtonMenu.setOnClickListener(this);

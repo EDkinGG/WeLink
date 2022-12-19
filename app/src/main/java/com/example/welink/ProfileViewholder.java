@@ -43,43 +43,43 @@ public class ProfileViewholder extends RecyclerView.ViewHolder {
         textViewProfession = itemView.findViewById(R.id.tv_profession_profile);
         viewUserprofile = itemView.findViewById(R.id.viewUser_profile);
         imageView = itemView.findViewById(R.id.profile_imageview);
-//        llprofile = itemView.findViewById(R.id.ll_profile);
-//
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        String currentuid = user.getUid();
+        llprofile = itemView.findViewById(R.id.ll_profile);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String currentuid = user.getUid();
 
 
-//        blockref = database.getReference("Block users").child(currentuid);
-//
-//        blockref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                if (snapshot.hasChild(uid)){
-//
-//                    textViewProfession.setText("");
-//                    textViewName.setText("App user");
-//                    viewUserprofile.setVisibility(View.GONE);
-//
-//
-//                }else {
-//
-//                    Picasso.get().load(url).into(imageView);
-//                    textViewProfession.setText(prof);
-//                    textViewName.setText(name);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+        blockref = database.getReference("Block users").child(currentuid);
 
-                    //pore delete korbo
+        blockref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.hasChild(uid)){
+
+                    textViewProfession.setText("");
+                    textViewName.setText("App user");
+                    viewUserprofile.setVisibility(View.GONE);
+
+
+                }else {
+
                     Picasso.get().load(url).into(imageView);
                     textViewProfession.setText(prof);
                     textViewName.setText(name);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+                    //pore delete korbo
+//                    Picasso.get().load(url).into(imageView);
+//                    textViewProfession.setText(prof);
+//                    textViewName.setText(name);
 
 
 
@@ -95,59 +95,59 @@ public class ProfileViewholder extends RecyclerView.ViewHolder {
         TextView nametv = itemView.findViewById(R.id.name_ch_item_tv);
         TextView proftv = itemView.findViewById(R.id.ch_itemprof_tv);
         sendmessagebtn = itemView.findViewById(R.id.send_messagech_item_btn);
-//        CardView cv_chat = itemView.findViewById(R.id.cv_chat_profile);
-//        LinearLayout linearLayout = itemView.findViewById(R.id.ll_chat_profile);
-//
-//
-//        blockref = database.getReference("Block users").child(userid);
-//
-//        blockref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                if (snapshot.hasChild(uid)){
-//                    cv_chat.setVisibility(View.GONE);
-//                    linearLayout.setVisibility(View.GONE);
-//                }else {
-//
-//                    if (userid.equals(uid)){
-////                        Picasso.get().load(url).into(imageView);
-////                        nametv.setText(name);
-////                        proftv.setText(prof);
-////                        sendmessagebtn.setVisibility(View.INVISIBLE);
-//                        cv_chat.setVisibility(View.GONE);
-//                        linearLayout.setVisibility(View.GONE);
-//                    }else {
+        CardView cv_chat = itemView.findViewById(R.id.cv_chat_profile);
+        LinearLayout linearLayout = itemView.findViewById(R.id.ll_chat_profile);
+
+
+        blockref = database.getReference("Block users").child(userid);
+
+        blockref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.hasChild(uid)){
+                    cv_chat.setVisibility(View.GONE);
+                    linearLayout.setVisibility(View.GONE);
+                }else {
+
+                    if (userid.equals(uid)){
 //                        Picasso.get().load(url).into(imageView);
 //                        nametv.setText(name);
 //                        proftv.setText(prof);
-//                    }
-//
-//
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+//                        sendmessagebtn.setVisibility(View.INVISIBLE);
+                        cv_chat.setVisibility(View.GONE);
+                        linearLayout.setVisibility(View.GONE);
+                    }else {
+                        Picasso.get().load(url).into(imageView);
+                        nametv.setText(name);
+                        proftv.setText(prof);
+                    }
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
         //42 no video er jonno add korsi pore delete kore dibo cuz upore same code comment kore rakhsi
-        if (userid.equals(uid)){
-            Picasso.get().load(url).into(imageView);
-            nametv.setText(name);
-            proftv.setText(prof);
-            sendmessagebtn.setVisibility(View.INVISIBLE);
-//            cv_chat.setVisibility(View.GONE);
-//            linearLayout.setVisibility(View.GONE);
-        }else {
-            Picasso.get().load(url).into(imageView);
-            nametv.setText(name);
-            proftv.setText(prof);
-        }
+//        if (userid.equals(uid)){
+//            Picasso.get().load(url).into(imageView);
+//            nametv.setText(name);
+//            proftv.setText(prof);
+//            sendmessagebtn.setVisibility(View.INVISIBLE);
+////            cv_chat.setVisibility(View.GONE);
+////            linearLayout.setVisibility(View.GONE);
+//        }else {
+//            Picasso.get().load(url).into(imageView);
+//            nametv.setText(name);
+//            proftv.setText(prof);
+//        }
 
 
 

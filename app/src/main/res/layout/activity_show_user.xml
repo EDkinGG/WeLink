@@ -45,17 +45,26 @@
                 app:layout_constraintStart_toStartOf="parent">
 
 
-                <ImageView
+<!--                <ImageView-->
+<!--                    android:id="@+id/imageView_showprofile"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:adjustViewBounds="true"-->
+<!--                    android:clickable="true"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:src="@drawable/ic_baseline_person_24"-->
+<!--                    tools:layout_editor_absoluteX="51dp"-->
+<!--                    tools:layout_editor_absoluteY="28dp" />-->
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imageView_showprofile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:adjustViewBounds="true"
                     android:clickable="true"
-                    android:scaleType="centerCrop"
                     android:src="@drawable/ic_baseline_person_24"
-                    tools:layout_editor_absoluteX="51dp"
-                    tools:layout_editor_absoluteY="28dp" />
+                    />
+
             </androidx.cardview.widget.CardView>
 
 
