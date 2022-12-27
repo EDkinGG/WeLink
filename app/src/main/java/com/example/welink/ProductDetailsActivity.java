@@ -20,10 +20,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ProductDetailsActivity extends AppCompatActivity {
 
     ImageView iv_product;
-    ImageButton ib_profile;
+    CircleImageView ib_profile;
 
     TextView tv_head,tv_location, tv_contact, tv_description, tv_price,tv_product_category;
 

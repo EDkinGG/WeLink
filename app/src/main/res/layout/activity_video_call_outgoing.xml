@@ -22,13 +22,24 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.110000014">
 
-        <ImageView
+<!--        <ImageView-->
+<!--            android:id="@+id/iv_og_vc"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="@drawable/ic_person"-->
+<!--            android:clickable="true"-->
+<!--            android:scaleType="fitCenter" />-->
+
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_og_vc"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/ic_person"
+            android:layout_gravity="center"
             android:clickable="true"
-            android:scaleType="fitCenter" />
+            android:src="@drawable/ic_person"
+            />
+
+
 
     </androidx.cardview.widget.CardView>
 
@@ -78,7 +89,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Incoming Video Call"
+        android:text="Calling"
         android:textColor="@android:color/white"
         android:textSize="25sp"
         android:textStyle="bold"

@@ -37,9 +37,12 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class CommentsActivity extends AppCompatActivity {
 
-    ImageView usernameImageview;
+    CircleImageView usernameImageview;
+//    ImageView usernameImageview;
     TextView usernameTextview;
     Button commentsBtn;
     EditText commentsEdittext;

@@ -29,13 +29,15 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import jp.shts.android.storiesprogressview.StoriesProgressView;
 
 public class ShowStory extends AppCompatActivity implements StoriesProgressView.StoriesListener {
 
 
     int counter = 0;
-    ImageView imageViewSHowStory,imageViewUrl;
+    CircleImageView imageViewUrl;
+    ImageView imageViewSHowStory;//imageViewUrl;
     TextView textView,tv_view,tvcap;
     ImageButton deletebtn;
 

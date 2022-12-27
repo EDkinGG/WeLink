@@ -37,11 +37,15 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class CreateProfile extends AppCompatActivity {
+
+    CircleImageView imageView;
 
     EditText etName,etBio,etProfession,etEmail,etWeb;
     Button button;
-    ImageView imageView;
+//    ImageView imageView;
     ProgressBar progressBar;
 
     Uri imageUri;

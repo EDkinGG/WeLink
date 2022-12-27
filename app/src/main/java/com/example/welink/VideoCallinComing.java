@@ -39,6 +39,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
 
 public class VideoCallinComing extends AppCompatActivity {
@@ -47,7 +48,7 @@ public class VideoCallinComing extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     String sender_url,sender_prof,sender_name,sender_uid,receiver_uid;
     VcModel model;
-    ImageView imageView;
+    CircleImageView imageView;
     FloatingActionButton declinebtn,acceptbtn;
     TextView tvname,tvprof;
     MediaPlayer mp;

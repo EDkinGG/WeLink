@@ -40,11 +40,15 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ShowUser extends AppCompatActivity {
 
 
+    CircleImageView imageView;
+
     TextView nametv,professiontv,biotv,emailtv,websitetv,requesttv,blockreporttv;
-    ImageView imageView;
+//    ImageView imageView;
     FirebaseDatabase database;
     DatabaseReference databaseReference,databaseReference1,databaseReference2,
             postnoref,db1,db2,ntref,blockRef,reportRefUser,blocklistref;

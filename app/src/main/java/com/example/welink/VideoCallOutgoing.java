@@ -34,11 +34,12 @@ import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
 
 public class VideoCallOutgoing extends AppCompatActivity {
 
-    ImageView imageView;
+    CircleImageView imageView;
     TextView tvname,tvprof;
     FloatingActionButton declinebtn;
     String receiver_url,receive_prof,receiver_name,receiver_token,reciver_uid,sender_uid;

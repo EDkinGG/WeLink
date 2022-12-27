@@ -7,70 +7,106 @@
     android:background="@color/white"
     tools:context=".MessageActivity">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="50dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardPreventCornerOverlap="false"
+        android:layout_gravity="center"
+        android:elevation="8dp"
+        app:cardElevation="10dp"
         tools:ignore="MissingConstraints">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical|right"
-            app:cardPreventCornerOverlap="false"
-            android:layout_marginLeft="20dp"
-            app:cardCornerRadius="15dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/iv_message"
-                android:background="@drawable/ic_person"
-                android:clickable="true"
-                android:scaleType="fitCenter"/>
-
-        </androidx.cardview.widget.CardView>
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="15dp"
-            android:id="@+id/username_messageTv"
-            android:text="Username"
-            android:textSize="15sp"
-            android:textColor="@color/black" />
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="5dp"
-            android:visibility="invisible"
-            android:id="@+id/typingstatus"
-            android:text="is typing..."
-            android:textSize="15sp"
-            android:textColor="@color/start" />
 
-            <ImageButton
+            <androidx.cardview.widget.CardView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginLeft="20dp"
+                android:elevation="8dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="10dp"
+                app:cardPreventCornerOverlap="false">
+
+                <!--            <ImageView-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="match_parent"-->
+                <!--                android:id="@+id/iv_message"-->
+                <!--                android:background="@drawable/ic_person"-->
+                <!--                android:clickable="true"-->
+                <!--                android:scaleType="fitCenter"/>-->
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:src="@drawable/ic_person" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/username_messageTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:id="@+id/btn_vc"
-                android:layout_marginStart="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="15dp"
+                android:text="Username"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/typingstatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:text="is typing..."
+                android:textColor="@color/start"
+                android:textSize="15sp"
+                android:visibility="invisible" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_baseline_videocam_24"
-                android:layout_marginLeft="20dp" />
+                android:orientation="vertical"
+                tools:ignore="MissingConstraints">
+
+                <ImageButton
+                    android:id="@+id/btn_vc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_baseline_videocam_24" />
+
+            </LinearLayout>
 
 
-    </LinearLayout>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_message"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="60dp"
-        android:layout_marginBottom="50dp"
-        android:id="@+id/rv_message"/>
+        android:layout_marginBottom="50dp" />
+
 
     <ImageButton
         android:id="@+id/imageButtonsend"
@@ -117,11 +153,11 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageButton
+            android:id="@+id/btn_mic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:padding="10dp"
-            android:id="@+id/btn_mic"
             android:src="@drawable/ic_baseline_mic_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/messageet"

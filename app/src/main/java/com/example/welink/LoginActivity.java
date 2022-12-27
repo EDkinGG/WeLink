@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,6 +41,7 @@ import com.google.firebase.storage.StorageReference;
 public class LoginActivity extends AppCompatActivity {
 
     EditText emailET,passwordET;
+//    TextInputEditText passwordET;
     Button signup_btn, login_btn;
     CheckBox checkBox;
     ProgressBar progressBar;
@@ -56,24 +58,24 @@ public class LoginActivity extends AppCompatActivity {
         passwordET = findViewById(R.id.login_password_ET);
         login_btn = findViewById(R.id.login_BTN);
         signup_btn = findViewById(R.id.login_to_signup_BTN);
-        checkBox = findViewById(R.id.login_checkbox);
+//        checkBox = findViewById(R.id.login_checkbox);
         progressBar = findViewById(R.id.progressbar_login);
         mAuth = FirebaseAuth.getInstance();
 
 
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b)
-                {
-                    passwordET.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                }
-                else
-                {
-                    passwordET.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                }
-            }
-        });
+//        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                if(b)
+//                {
+//                    passwordET.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+//                }
+//                else
+//                {
+//                    passwordET.setTransformationMethod(PasswordTransformationMethod.getInstance());
+//                }
+//            }
+//        });
 
         signup_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +91,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String email = emailET.getText().toString();
                 String pass = passwordET.getText().toString();
+
+//                String email = "ras360ghani@gmail.com";
+//                String pass = "239515";
 
                 if( !TextUtils.isEmpty(email) && !TextUtils.isEmpty(pass) )
                 {

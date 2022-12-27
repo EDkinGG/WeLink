@@ -29,10 +29,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class PostViewholder extends RecyclerView.ViewHolder {
 
     ImageView iv_post;
-    ImageButton imageViewprofile;
+    CircleImageView imageViewprofile;
     TextView tv_name, tv_desc, tv_likes,tv_comment,tv_time,tv_nameprofile;
     ImageButton likebtn,menuoptions,commentbtn;
     DatabaseReference likesref,commentref,blockref;

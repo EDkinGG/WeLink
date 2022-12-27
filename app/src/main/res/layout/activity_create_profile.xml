@@ -23,15 +23,27 @@
         android:layout_height="150dp"
         app:cardPreventCornerOverlap="false"
         app:cardCornerRadius="75dp"
-        android:layout_marginBottom="30dp">
+        android:layout_marginBottom="30dp"
+        android:elevation="8dp"
+        app:cardElevation="10dp">
 
-        <ImageView
+<!--        <ImageView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:id="@+id/iv_cp"-->
+<!--            android:clickable="true"-->
+<!--            android:background="@drawable/ic_baseline_person_24"-->
+<!--            android:scaleType="fitCenter"/>-->
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_cp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/iv_cp"
+            android:layout_gravity="center"
             android:clickable="true"
-            android:background="@drawable/ic_baseline_person_24"
-            android:scaleType="fitCenter"/>
+            android:src="@drawable/ic_baseline_person_24"
+            />
+
     </androidx.cardview.widget.CardView>
 
     <EditText

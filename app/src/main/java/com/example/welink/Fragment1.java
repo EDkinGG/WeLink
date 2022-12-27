@@ -49,8 +49,10 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Fragment1 extends Fragment implements View.OnClickListener{
-    ImageView imageView;
+    CircleImageView imageView;
     TextView nameEt, profEt, bioEt,emailEt,webEt,postTv,storyadd,followertv,newtv;
 //    Button logoutBtn;
     Button btnsendmessage;

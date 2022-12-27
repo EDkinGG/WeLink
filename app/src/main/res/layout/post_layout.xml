@@ -8,7 +8,9 @@
     android:layout_margin="5dp"
     android:id="@+id/cv_post"
     app:cardBackgroundColor="@android:color/white"
-    app:cardCornerRadius="5dp">
+    app:cardCornerRadius="10dp"
+    android:elevation="8dp"
+    app:cardElevation="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,22 +21,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="3dp">
+            android:padding="5dp">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
                 app:cardPreventCornerOverlap="false"
-                app:cardCornerRadius="20dp">
+                app:cardCornerRadius="20dp"
+                android:elevation="8dp"
+                app:cardElevation="10dp">
 
-                <ImageButton
+<!--                <ImageButton-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:id="@+id/iv_profile_item"-->
+<!--                    android:background="@drawable/ic_baseline_person_24"-->
+<!--                    android:clickable="true"-->
+<!--                    android:scaleType="centerCrop"/>-->
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_profile_item"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/iv_profile_item"
-                    android:background="@drawable/ic_baseline_person_24"
+                    android:layout_gravity="center"
                     android:clickable="true"
-                    android:scaleType="centerCrop"/>
+                    android:src="@drawable/ic_baseline_person_24"
+                    />
 
             </androidx.cardview.widget.CardView>
 
@@ -72,7 +85,7 @@
             android:textColor="@android:color/black"
             android:textSize="15sp"
             android:id="@+id/tv_desc_post"
-            android:paddingStart="5dp"
+            android:padding="5dp"
             />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -80,25 +93,41 @@
             android:layout_height="wrap_content">
 
 
-            <ImageView
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:id="@+id/iv_post_item"
-                android:scaleType="centerCrop"
-                android:visibility="visible"
-                tools:ignore="MissingConstraints" />
+                android:layout_height="match_parent"
+                app:cardPreventCornerOverlap="false"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="10dp"
+                android:elevation="8dp"
+                app:cardElevation="10dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:id="@+id/iv_post_item"
+                    android:scaleType="centerCrop"
+                    android:visibility="visible"
+                    tools:ignore="MissingConstraints" />
 
 
-            <com.google.android.exoplayer2.ui.PlayerView
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:id="@+id/exoplayer_item_post"
-                app:use_controller="true"
-                app:controller_layout_id="@layout/custom_exoplayer"
-                app:show_timeout="3000"
-                android:visibility="visible"
-                app:resize_mode="fill"
-                tools:ignore="MissingConstraints" />
+                <com.google.android.exoplayer2.ui.PlayerView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:id="@+id/exoplayer_item_post"
+                    app:use_controller="true"
+                    app:controller_layout_id="@layout/custom_exoplayer"
+                    app:show_timeout="3000"
+                    android:visibility="visible"
+                    app:resize_mode="fill"
+                    tools:ignore="MissingConstraints" />
+
+
+            </androidx.cardview.widget.CardView>
+
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

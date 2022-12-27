@@ -43,11 +43,14 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class UpdatePhoto extends AppCompatActivity {
 
+    CircleImageView imageView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     StorageReference storageReference;
-    ImageView imageView;
+//    ImageView imageView;
     UploadTask uploadTask;
     ProgressBar progressBar;
     FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();

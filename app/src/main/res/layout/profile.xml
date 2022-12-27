@@ -4,7 +4,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_margin="5dp"
-    app:cardCornerRadius="5dp"
+    app:cardCornerRadius="10dp"
+    android:elevation="8dp"
+    app:cardElevation="10dp"
     android:id="@+id/cardview_profile"
     app:cardBackgroundColor="@color/white"
     android:layout_height="wrap_content">
@@ -28,18 +30,30 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
             app:cardPreventCornerOverlap="false"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:elevation="8dp"
+            app:cardElevation="10dp">
 
 
-            <ImageView
+<!--            <ImageView-->
+<!--                android:id="@+id/profile_imageview"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:adjustViewBounds="true"-->
+<!--                android:clickable="true"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                android:src="@drawable/ic_person" />-->
+
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_imageview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:adjustViewBounds="true"
                 android:clickable="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_person" />
+                android:src="@drawable/ic_person"
+                />
+
         </androidx.cardview.widget.CardView>
 
         <LinearLayout

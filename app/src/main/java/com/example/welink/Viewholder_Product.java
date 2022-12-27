@@ -11,9 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Viewholder_Product extends RecyclerView.ViewHolder {
 
-    ImageView productView,imageView;
+    ImageView productView;
+    CircleImageView imageView;
     TextView product_result, contact_result, price_result, time_result;
     View v;
 

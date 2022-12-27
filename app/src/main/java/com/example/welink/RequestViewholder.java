@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class RequestViewholder extends RecyclerView.ViewHolder {
 
-    ImageView imageView;
+    CircleImageView imageView;
     TextView textView;
     TextView button1,button2;
 

@@ -33,10 +33,12 @@ import com.squareup.picasso.Picasso;
 
 import javax.xml.parsers.DocumentBuilder;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Fragment2 extends Fragment implements View.OnClickListener{
 
     FloatingActionButton fb;
-    ImageView imageView;
+    CircleImageView imageView;
 
 
 

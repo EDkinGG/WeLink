@@ -20,13 +20,22 @@
         android:layout_marginBottom="50dp"
         app:cardElevation="10dp">
 
-        <ImageView
+<!--        <ImageView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:id="@+id/iv_updatephoto"-->
+<!--            android:background="@drawable/ic_person"-->
+<!--            android:clickable="true"-->
+<!--            android:scaleType="fitCenter"/>-->
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_updatephoto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/iv_updatephoto"
-            android:background="@drawable/ic_person"
+            android:layout_gravity="center"
             android:clickable="true"
-            android:scaleType="fitCenter"/>
+            android:src="@drawable/ic_person"
+            />
 
     </androidx.cardview.widget.CardView>
 

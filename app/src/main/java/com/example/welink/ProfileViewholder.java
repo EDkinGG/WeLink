@@ -20,12 +20,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ProfileViewholder extends RecyclerView.ViewHolder {
 
     TextView textViewName,textViewProfession,viewUserprofile,sendmessagebtn;
     TextView namell,vp_ll,namefollower,vpfollower,professionFollower;
     DatabaseReference blockref;
-    ImageView imageView,iv_ll,iv_follower;
+    CircleImageView imageView,iv_ll;
+    CircleImageView iv_follower;
     CardView cardView;
     LinearLayout llprofile;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -91,7 +94,7 @@ public class ProfileViewholder extends RecyclerView.ViewHolder {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userid = user.getUid();
 
-        ImageView imageView = itemView.findViewById(R.id.iv_ch_item);
+        CircleImageView imageView = itemView.findViewById(R.id.iv_ch_item);
         TextView nametv = itemView.findViewById(R.id.name_ch_item_tv);
         TextView proftv = itemView.findViewById(R.id.ch_itemprof_tv);
         sendmessagebtn = itemView.findViewById(R.id.send_messagech_item_btn);

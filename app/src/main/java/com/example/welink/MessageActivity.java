@@ -71,10 +71,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MessageActivity extends AppCompatActivity {
 
+    CircleImageView imageView;
     RecyclerView recyclerView;
-    ImageView imageView;
+//    ImageView imageView;
     ImageButton sendbtn, cambtn, micbtn,vcbtn;
     TextView username, typingtv;
     EditText messageEt;
@@ -115,7 +118,7 @@ public class MessageActivity extends AppCompatActivity {
                 permissionToReadAccepted  = grantResults[2] == PackageManager.PERMISSION_GRANTED;
                 break;
         }
-        Toast.makeText(this, "Done and Dusted", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Loaded", Toast.LENGTH_SHORT).show();
         if (!permissionToRecordAccepted ) finish();
         if (!permissionToWriteAccepted ) finish();
         if (!permissionToReadAccepted ) finish();
@@ -127,7 +130,7 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 //        // Disable screenshot in app
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
 

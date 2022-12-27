@@ -12,10 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class BlockViewHolder extends RecyclerView.ViewHolder {
 
     TextView nametv,unblocktv;
-    ImageView imageView;
+    CircleImageView imageView;
 
     public BlockViewHolder(@NonNull View itemView) {
         super(itemView);

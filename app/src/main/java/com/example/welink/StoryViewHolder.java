@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class StoryViewHolder  extends RecyclerView.ViewHolder {
 
-    ImageView imageView ;
+    CircleImageView imageView ;
     TextView textView;
     public StoryViewHolder(@NonNull View itemView) {
         super(itemView);

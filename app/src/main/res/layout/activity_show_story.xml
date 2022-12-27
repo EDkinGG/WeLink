@@ -26,13 +26,22 @@
         app:cardPreventCornerOverlap="false"
         app:cardCornerRadius="20dp">
 
-        <ImageView
+<!--        <ImageView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:id="@+id/iv_ss"-->
+<!--            android:background="@drawable/ic_person"-->
+<!--            android:clickable="true"-->
+<!--            android:scaleType="fitCenter"/>-->
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_ss"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/iv_ss"
-            android:background="@drawable/ic_person"
+            android:layout_gravity="center"
             android:clickable="true"
-            android:scaleType="fitCenter"/>
+            android:src="@drawable/ic_person"
+            />
 
     </androidx.cardview.widget.CardView>
 

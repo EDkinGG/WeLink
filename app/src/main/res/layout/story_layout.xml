@@ -11,16 +11,27 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_gravity="center_vertical"
+        android:elevation="8dp"
+        app:cardElevation="10dp"
         app:cardPreventCornerOverlap="false"
         app:cardCornerRadius="30dp">
 
-        <ImageView
+<!--        <ImageView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:id="@+id/iv_story_f4"-->
+<!--            android:background="@drawable/ic_person"-->
+<!--            android:clickable="true"-->
+<!--            android:scaleType="centerCrop"/>-->
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_story_f4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/iv_story_f4"
-            android:background="@drawable/ic_person"
+            android:layout_gravity="center"
             android:clickable="true"
-            android:scaleType="centerCrop"/>
+            android:src="@drawable/ic_person"
+            />
 
     </androidx.cardview.widget.CardView>
 

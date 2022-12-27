@@ -41,25 +41,25 @@ public class RegisterActivity extends AppCompatActivity {
         confirmET = findViewById(R.id.register_confirm_password_ET);
         reg_btn = findViewById(R.id.register_BTN);
         login_btn = findViewById(R.id.register_to_login_BTN);
-        checkBox = findViewById(R.id.register_checkbox);
+//        checkBox = findViewById(R.id.register_checkbox);
         progressBar = findViewById(R.id.progressbar_register);
         mAuth = FirebaseAuth.getInstance();
 
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b)
-                {
-                    passwordET.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    confirmET.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                }
-                else
-                {
-                    passwordET.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    confirmET.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                }
-            }
-        });
+//        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                if(b)
+//                {
+//                    passwordET.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+//                    confirmET.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+//                }
+//                else
+//                {
+//                    passwordET.setTransformationMethod(PasswordTransformationMethod.getInstance());
+//                    confirmET.setTransformationMethod(PasswordTransformationMethod.getInstance());
+//                }
+//            }
+//        });
 
         reg_btn.setOnClickListener(new View.OnClickListener() {
             @Override

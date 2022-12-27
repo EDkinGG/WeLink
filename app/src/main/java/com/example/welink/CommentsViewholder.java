@@ -18,10 +18,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class CommentsViewholder extends RecyclerView.ViewHolder {
 
 
-    ImageView imageView;
+    CircleImageView imageView;
     TextView nameTv,timeTv,ansTv,tv_likes,delete;
     ImageButton likebutton;
     int likescount ;

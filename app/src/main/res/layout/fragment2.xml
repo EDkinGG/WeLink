@@ -32,15 +32,27 @@
             app:cardPreventCornerOverlap="false"
             android:layout_gravity="center_vertical|right"
             android:layout_marginRight="15dp"
-            app:cardCornerRadius="15dp">
+            app:cardCornerRadius="15dp"
+            android:elevation="8dp"
+            app:cardElevation="10dp">
 
-            <ImageView
+<!--            <ImageView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:id="@+id/iv_f2"-->
+<!--                android:clickable="true"-->
+<!--                android:background="@drawable/ic_baseline_person_24"-->
+<!--                android:scaleType="fitCenter"/>-->
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_f2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/iv_f2"
+                android:layout_gravity="center"
                 android:clickable="true"
-                android:background="@drawable/ic_baseline_person_24"
-                android:scaleType="fitCenter"/>
+                android:src="@drawable/ic_baseline_person_24"
+                />
+
         </androidx.cardview.widget.CardView>
 
 
