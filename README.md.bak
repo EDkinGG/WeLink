@@ -11,7 +11,7 @@
 
 <h2>Use Case Diagram</h2>
 <p align = center>
-<img src = "image/0.png" alt = "" title = "" width = "300">
+<img src = "image/0.png" alt = "" title = "" width = "600">
 <br>
 Figure: Use Case Diagram
 </p>
@@ -40,7 +40,7 @@ Figure: Use Case Diagram
 	<li>Profile can be edited anytime</li>
 </ul>
 <p align = center>
-<img src = "image/1.png" alt = "" title = "" width = "410">
+<img src = "image/1.png" alt = "" title = "" width = "300">
 <br>
 </p>
 
@@ -51,8 +51,7 @@ Figure: Use Case Diagram
 	<li>Here is a Private profile</li>
 </ul>
 <p align = center>
-<img src = "image/2.png" alt = "" title = "" width = "410">
-<br>
+<img src = "image/2.jpg" alt = "" title = "" width = "300">
 </p>
 
 <h2>Market Place</h2>
@@ -61,7 +60,7 @@ Figure: Use Case Diagram
 	<li>Communicate with the seller by sending message</li>
 </ul>
 <p align = center>
-<img src = "image/3.png" alt = "" title = "" width = "410">
+<img src = "image/3.png" alt = "" title = "" width = "300">
 <br>
 </p>
 
@@ -78,7 +77,7 @@ Figure: Use Case Diagram
 	<li>Comment and reply </li>
 </ul>
 <p align = center>
-<img src = "image/4.png" alt = "" title = "" width = "410">
+<img src = "image/4.png" alt = "" title = "" width = "300">
 <br>
 </p>
 
@@ -92,7 +91,7 @@ Figure: Use Case Diagram
 	<li>Report on a post</li>
 </ul>
 <p align = center>
-<img src = "image/Picture5.png" alt = "" title = "" width = "410">
+<img src = "image/Picture5.png" alt = "" title = "" width = "300">
 <br>
 </p>
 
@@ -104,7 +103,7 @@ Figure: Use Case Diagram
 	<li>Accept Follow request</li>
 </ul>
 <p align = center>
-<img src = "image/Picture6.png" alt = "" title = "" width = "410">
+<img src = "image/Picture6.png" alt = "" title = "" width = "300">
 <br>
 </p>
 
@@ -120,8 +119,8 @@ Figure: Use Case Diagram
 	<li>Screenshot restriction</li>
 </ul>
 <p align = center>
-<img src = "image/Picture7.png" alt = "" title = "" width = "410">
-<img src = "image/Picture8.png" alt = "" title = "" width = "410">
+<img src = "image/Picture7.png" alt = "" title = "" width = "300">
+<img src = "image/Picture8.png" alt = "" title = "" width = "300">
 <br>
 </p>
 
@@ -131,12 +130,12 @@ Figure: Use Case Diagram
 	<li>Incoming Video call</li>
 </ul>
 <p align = center>
-<img src = "image/Picture9.png" alt = "" title = "" width = "410">
-<img src = "image/Picture10.png" alt = "" title = "" width = "410">
+<img src = "image/Picture9.png" alt = "" title = "" width = "300">
+<img src = "image/Picture10.png" alt = "" title = "" width = "300">
 </p>
 <p align = center>
-<img src = "image/Picture11.png" alt = "" title = "" width = "410">
-<img src = "image/Picture12.png" alt = "" title = "" width = "410">
+<img src = "image/Picture11.png" alt = "" title = "" width = "300">
+<img src = "image/Picture12.png" alt = "" title = "" width = "300">
 </p>
 
 <h2>Story</h2>
@@ -146,7 +145,7 @@ Figure: Use Case Diagram
 	<li>User also can delete it any time</li>
 </ul>
 <p align = center>
-<img src = "image/Picture13.png" alt = "" title = "" width = "410">
+<img src = "image/Picture13.png" alt = "" title = "" width = "300">
 </p>
 
 
@@ -160,12 +159,12 @@ Figure: Use Case Diagram
 	<li>Light and dark mode</li>
 </ul>
 <p align = center>
-<img src = "image/Picture14.png" alt = "" title = "" width = "410">
-<img src = "image/Picture15.png" alt = "" title = "" width = "410">
+<img src = "image/Picture14.jpg" alt = "" title = "" width = "300">
+<img src = "image/Picture15.jpg" alt = "" title = "" width = "300">
 </p>
 <p align = center>
-<img src = "image/Picture16.png" alt = "" title = "" width = "410">
-<img src = "image/Picture17.png" alt = "" title = "" width = "410">
+<img src = "image/Picture16.png" alt = "" title = "" width = "300">
+<img src = "image/Picture17.jpg" alt = "" title = "" width = "300">
 </p>
 
 <h2>Admin Panel</h2>
@@ -175,9 +174,9 @@ Figure: Use Case Diagram
 	<li>Take action on reported user</li>
 </ul>
 <p align = center>
-<img src = "image/Picture18.png" alt = "" title = "" width = "410">
-<img src = "image/Picture19.png" alt = "" title = "" width = "410">
+<img src = "image/Picture18.png" alt = "" title = "" width = "300">
+<img src = "image/Picture19.png" alt = "" title = "" width = "300">
 </p>
 <p align = center>
-<img src = "image/Picture20.png" alt = "" title = "" width = "410">
+<img src = "image/Picture20.png" alt = "" title = "" width = "300">
 </p>

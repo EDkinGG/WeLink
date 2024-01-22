@@ -51,8 +51,7 @@ Figure: Use Case Diagram
 	<li>Here is a Private profile</li>
 </ul>
 <p align = center>
-<img src = "image/2.png" alt = "" title = "" width = "300">
-<br>
+<img src = "image/2.jpg" alt = "" title = "" width = "300">
 </p>
 
 <h2>Market Place</h2>
@@ -78,7 +77,7 @@ Figure: Use Case Diagram
 	<li>Comment and reply </li>
 </ul>
 <p align = center>
-<img src = "image/4.png" alt = "" title = "" width = "300">
+<img src = "image/4.jpg" alt = "" title = "" width = "300">
 <br>
 </p>
 
@@ -160,12 +159,12 @@ Figure: Use Case Diagram
 	<li>Light and dark mode</li>
 </ul>
 <p align = center>
-<img src = "image/Picture14.png" alt = "" title = "" width = "300">
-<img src = "image/Picture15.png" alt = "" title = "" width = "300">
+<img src = "image/Picture14.jpg" alt = "" title = "" width = "300">
+<img src = "image/Picture15.jpg" alt = "" title = "" width = "300">
 </p>
 <p align = center>
-<img src = "image/Picture16.png" alt = "" title = "" width = "300">
-<img src = "image/Picture17.png" alt = "" title = "" width = "300">
+<img src = "image/Picture16.jpg" alt = "" title = "" width = "300">
+<img src = "image/Picture17.jpg" alt = "" title = "" width = "300">
 </p>
 
 <h2>Admin Panel</h2>
